@@ -4,7 +4,6 @@
 
 Bloco 20: Introdução à SQL
 
-- [ ] 20.1: Banco de dados SQL
-- [ ] 20.2: Encontrando dados em um banco de dados
+- [x] 20.2: Encontrando dados em um banco de dados
 - [ ] 20.3: Filtrando dados de forma específica
 - [ ] 20.4: Manipulando tabelas
