@@ -7,3 +7,9 @@ Bloco 20: Introdução à SQL
 - [x] 20.2: Encontrando dados em um banco de dados
 - [x] 20.3: Filtrando dados de forma específica
 - [x] 20.4: Manipulando tabelas
+
+Bloco 21: Funções SQL, Joins e Subqueries
+
+- [ ] Funções mais usadas no SQL
+- [ ] Descomplicando JOINs, UNIONs e Subqueries
+- [ ] Stored Routines & Stored Functions
