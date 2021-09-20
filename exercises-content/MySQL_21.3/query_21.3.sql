@@ -88,3 +88,74 @@ END //
 DELIMITER ;
 
 CALL getCustomerByEmail('SANDRA.MARTIN@sakilacustomer.org');
+
+-- -----------------------------------------------------------------------------------------------------------------------------------
+-- Stored Functions
+
+-- Utilizando a tabela sakila.payment , monte uma function que retorna a quantidade total de pagamentos feitos até o momento por um determinado customer_id .
+USE sakila;
+
+DELIMITER $$
+
+CREATE FUNCTION totalPaymentByCustomerId(id INT)
+RETURNS INT READS SQL DATA
+BEGIN
+  DECLARE totalPayment INT;
+SELECT 
+    COUNT(customer_id)
+FROM
+    payment
+WHERE
+    customer_id = id INTO totalPayment;
+  RETURN totalPayment;
+END $$
+
+DELIMITER ;
+
+SELECT totalPaymentByCustomerId(2);
+
+-- Crie uma function que, dado o parâmetro de entrada inventory_id , retorna o nome do filme vinculado ao registro de inventário com esse id.
+DELIMITER $$
+
+CREATE FUNCTION getFilmeNameByInventoryId(id INT)
+RETURNS VARCHAR(50) READS SQL DATA
+BEGIN
+  DECLARE filmeName VARCHAR(50);
+SELECT 
+    f.title
+FROM
+    film AS f
+        INNER JOIN
+    inventory AS i ON i.film_id = f.film_id
+WHERE
+    i.inventory_id = id INTO filmeName;
+  RETURN filmeName;
+END $$
+
+DELIMITER ;
+
+SELECT getFilmeNameByInventoryId(14);
+
+-- Crie uma function que receba uma determinada categoria de filme em formato de texto (ex: 'Action' , 'Horror' ) e retorna a quantidade total de filmes registrados nessa categoria.
+SELECT * FROM category;
+SELECT * FROM film_category;
+DELIMITER $$
+
+CREATE FUNCTION getQuantityCategoryFilms(categoryName VARCHAR(100))
+RETURNS INT READS SQL DATA
+BEGIN
+  DECLARE filmQty INT;
+SELECT 
+    count(f.film_id)
+FROM
+    film_category AS f
+        INNER JOIN
+    category AS c ON c.category_id = f.category_id
+WHERE
+    c.name = categoryName INTO filmQty;
+  RETURN filmQty;
+END $$
+
+DELIMITER ;
+
+SELECT getQuantityCategoryFilms('Action');
