@@ -159,3 +159,81 @@ END $$
 DELIMITER ;
 
 SELECT getQuantityCategoryFilms('Action');
+
+-- -----------------------------------------------------------------------------------------------------------------------------------
+-- Triggers
+
+CREATE TABLE carros(
+    id_carro INT PRIMARY KEY auto_increment,
+    preco DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    data_atualizacao DATETIME,
+    acao VARCHAR(15),
+    disponivel_em_estoque BOOLEAN DEFAULT 0
+) engine = InnoDB;
+
+CREATE TABLE log_operacoes(
+    operacao_id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_operacao VARCHAR(15) NOT NULL,
+    data_ocorrido DATE NOT NULL
+) engine = InnoDB;
+
+USE betrybe_automoveis;
+
+-- Crie um TRIGGER que, a cada nova inserção feita na tabela carros , defina o valor da coluna data_atualizacao para o momento do ocorrido, a acao para 'INSERÇÃO' e a coluna disponivel_em_estoque para 1 .
+DELIMITER $$
+
+CREATE TRIGGER insertCars
+BEFORE INSERT ON carros
+FOR EACH ROW
+BEGIN
+     SET NEW.acao = 'INSERÇÃO', NEW.disponivel_em_estoque = 1;
+END $$
+
+DELIMITER ;
+
+INSERT INTO carros (preco, data_atualizacao) VALUES ( 10000.00, now()); 
+
+SELECT 
+    *
+FROM
+    carros;
+
+-- Crie um TRIGGER que, a cada atualização feita na tabela carros , defina o valor da coluna data_atualizacao para o momento do ocorrido e a acao para 'ATUALIZAÇÃO'.
+
+DELIMITER $$
+
+CREATE TRIGGER updateCars
+BEFORE UPDATE ON carros
+FOR EACH ROW
+BEGIN
+     SET NEW.data_atualizacao = now();
+END $$
+
+DELIMITER ;
+
+UPDATE carros 
+SET 
+    preco = 20000.00
+WHERE
+    id_carro = 1;
+
+SELECT 
+    *
+FROM
+    carros;
+
+-- Crie um TRIGGER que, a cada exclusão feita na tabela carros , envie para a tabela log_operacoes as informações do tipo_operacao como 'EXCLUSÃO' e a data_ocorrido como o momento da operação.
+DELIMITER $$
+
+CREATE TRIGGER deleteCars
+AFTER DELETE ON carros
+FOR EACH ROW
+BEGIN
+     INSERT INTO log_operacoes(tipo_operacao, data_ocorrido) VALUES ('EXCLUSÃO', now());
+END $$
+
+DELIMITER ;
+
+DELETE FROM carros WHERE id_carro = 2;
+select * from carros;
+select * from log_operacoes;
