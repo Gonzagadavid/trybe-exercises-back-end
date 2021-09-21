@@ -11,5 +11,5 @@ Bloco 20: Introdução à SQL
 Bloco 21: Funções SQL, Joins e Subqueries
 
 - [x] Funções mais usadas no SQL
-- [ ] Descomplicando JOINs, UNIONs e Subqueries
-- [ ] Stored Routines & Stored Functions
+- [x] Descomplicando JOINs, UNIONs e Subqueries
+- [x] Stored Routines & Stored Functions
