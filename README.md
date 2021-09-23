@@ -10,6 +10,13 @@ Bloco 20: Introdução à SQL
 
 Bloco 21: Funções SQL, Joins e Subqueries
 
-- [x] Funções mais usadas no SQL
-- [x] Descomplicando JOINs, UNIONs e Subqueries
-- [x] Stored Routines & Stored Functions
+- [x] 21.1: Funções mais usadas no SQL
+- [x] 21.2: Descomplicando JOINs, UNIONs e Subqueries
+- [x] 21.3: Stored Routines & Stored Functions
+
+Bloco 22: Normalização e Modelagem de Banco de Dados
+
+- [ ] 22.1: Transformando ideias em um modelo de banco de dados - Parte 1
+- [ ] 22.2: Normalização, Formas Normais e Dumps
+- [ ] 22.3: Transformando ideias em um modelo de banco de dados - Parte 2
+04: Projeto - One For All
