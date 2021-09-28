@@ -16,7 +16,7 @@ Bloco 21: Funções SQL, Joins e Subqueries
 
 Bloco 22: Normalização e Modelagem de Banco de Dados
 
-- [ ] 22.1: Transformando ideias em um modelo de banco de dados - Parte 1
-- [ ] 22.2: Normalização, Formas Normais e Dumps
-- [ ] 22.3: Transformando ideias em um modelo de banco de dados - Parte 2
-04: Projeto - One For All
+- [x] 22.1: Transformando ideias em um modelo de banco de dados - Parte 1
+- [x] 22.2: Normalização, Formas Normais e Dumps
+- [x] 22.3: Transformando ideias em um modelo de banco de dados - Parte 2
+
