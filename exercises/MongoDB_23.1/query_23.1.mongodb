@@ -1,0 +1,49 @@
+
+// Exercício 1 : Retorne o documento com o _id igual a 8.
+use("bios");
+db.bios.find({ _id: 8 });
+
+// Exercício 2 : Retorne o documento com o _id igual a 8, mas só exiba os atributos: _id e name .
+use("bios");
+db.bios.find({ _id: 8 }, { _id: true, name: true });
+
+// Exercício 3 : Retorne apenas os atributos name e birth do documento com o _id igual a 8.
+use("bios");
+db.bios.find(
+  { _id: 8 }, 
+  { birth: true, name: true, _id: false },
+  );
+
+// Exercício 4 : Retorne todos os documentos em que o atributo name.first seja igual a John , utilizando o método pretty() .
+use("bios");
+db.bios.find({ "name.first": "John" }).pretty();
+
+
+// Exercício 5 : Retorne os 3 primeiros documentos da coleção bios utilizando o método pretty() .
+use("bios");
+db.bios.find().limit(3);
+
+// Exercício 6 : Retorne 2 documentos da coleção bios pulando os 5 primeiros documentos.
+use("bios");
+db.bios.find().skip(5).limit(3);
+
+// Utilizando o mongoimport , importe o arquivo books.json para a sua instância local do MongoDB e utilize a coleção books para construir as seguintes consultas:
+// Exercício 7 : Retorne a quantidade de documentos da coleção books .
+use("bookdb");
+db.books.count();
+
+// Exercício 8 : Conte quantos livros existem com o status = "PUBLISH" .
+use("bookdb");
+db.books.find({ status: 'PUBLISH'}).count();
+
+// Exercício 9 : Exiba os atributos title , isbn e pageCount dos 3 primeiros livros. NÃO retorne o atributo _id .
+use("bookdb");
+db.books.find(
+  {}, { title: true, isbn: true, pageCount: true, _id: false }
+  ).limit(3);
+
+// Exercício 10: Pule 5 documentos e exiba os atributos _id , title , authors e status dos livros com o status = "MEAP" , limitando-se a 10 documentos.
+use("bookdb");
+db.books.find(
+  { status: 'MEAP' }, { title: true, authors: true }
+  ).skip(5).limit(10);

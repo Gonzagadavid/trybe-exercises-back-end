@@ -1,0 +1,2 @@
+// no terminal
+mongoimport ./books.json -d bookdb -c books --drop;
