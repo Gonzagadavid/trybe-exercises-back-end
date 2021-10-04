@@ -1,0 +1,9 @@
+// Remova o primeiro restaurante que possua culinária do tipo Ice Cream, Gelato, Yogurt, Ices .
+use('restaurantDB');
+db.restaurants.deleteOne({ 
+  cuisine: 'Ice Cream, Gelato, Yogurt, Ices'
+});
+
+// Remova todos os restaurantes que possuem culinária do tipo American .
+use('restaurantDB');
+db.restaurants.deleteMany({ cuisine: 'American' });
