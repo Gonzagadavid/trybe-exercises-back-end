@@ -1,0 +1,29 @@
+// Selecione e faça a contagem dos restaurantes que não possuem avaliação menor ou igual a 5 , essa consulta também deve retornar restaurantes que não possuem o campo avaliação.
+use('restaurantDB');
+db.restaurants.find({ rating: { $not: { $gt: 5 } } }).count();
+// 27
+
+// Selecione e faça a contagem dos restaurantes em que a avaliação seja maior ou igual a 6 , ou restaurantes localizados no bairro Brooklyn .
+use('restaurantDB');
+db.restaurants.find({ $or: [{ rating: { $gte: 6} }, { borough: { $eq: 'Brooklyn' } }] }).count();
+// 39
+
+// Selecione e faça a contagem dos restaurantes localizados nos bairros Queens , Staten Island e Broklyn e possuem avaliação maior que 4 .
+use('restaurantDB');
+db.restaurants.find({ $or: [{ rating: { $gt: 4} }, { borough: { $in: ['Brooklyn', 'Queens', 'Staten Island'] } }] }).count();
+// 54
+
+// Selecione e faça a contagem dos restaurantes onde nem o campo avaliação seja igual a 1 , nem o campo culinária seja do tipo American .
+use('restaurantDB');
+db.restaurants.find({ $nor: [{ rating: { $eq: 1 } }, { cuisine:  'American'}] }).count();
+// 39
+
+// Selecione e faça a contagem dos resturantes em que a avaliação seja maior que 6 ou menor que 10 , E esteja localizado no bairro Brooklyn , OU não possuem culinária do tipo Delicatessen .
+use('restaurantDB');
+db.restaurants.find({
+    $and: [
+      { $or: [{ rating: { $gt: 6, $lt: 10 } }] },
+      { $or: [{ borough: 'Brooklyn' }, { cuisine: { $ne: 'Delicatessen' } }] },
+    ],
+  }).count();
+// 18

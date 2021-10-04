@@ -5,7 +5,7 @@ db.restaurants.find({borough: { $in: ['Queens' , 'Staten Island', 'Bronx']}}).co
 
 // Selecione e faça a contagem dos restaurantes que não possuem culinária do tipo American . (utilizando o atributo cuisine )
 use('restaurantDB');
-db.restaurants.find({cuisine: { $nin: ['American']}}).count(); 
+db.restaurants.find({cuisine: { $ne: 'American'}}).count(); 
 // 40
 
 // Selecione e faça a contagem dos restaurantes que possuem avaliação maior ou igual a 8 . (utilizando o atributo rating )
