@@ -61,6 +61,14 @@ db.movies.find();
 
 // Exercício 6: Adicione o elemento "action" ao array category do filme Batman , garantindo que esse valor não se duplique.
 // Após a execução do método .find().pretty() o resultado do filme Batman será parecido com o dessa imagem: ./images/exercise6
+use('class');
+db.movies.updateOne(
+  { title: 'Batman'},
+  { $addToSet: { category: 'action' }}
+);
+
+use('class');
+db.movies.find();
 
 // Exercício 7: Adicione a categoria "90's" aos filmes Batman e Home Alone .
 // Após a execução do método .find().pretty() , o resultado do filme Batman e do filme Home Alone será parecido com o dessa imagem: ./images/exercise7
