@@ -176,7 +176,7 @@ use('class');
 db.movies.updateOne(
   { title: 'Batman'},
   { $set: {
-    'cast.$[elemento].actor': 'Christian Bale'
+    'cast.$[elemento].actor': ['Christian Bale']
     }, 
   },
   { arrayFilters: [{ 'elemento.character': 'Batman' }] },
@@ -185,7 +185,7 @@ db.movies.updateOne(
 db.movies.updateOne(
   { title: 'Batman'},
   { $set: {
-    'cast.$[elemento].actor': 'Michael Caine'
+    'cast.$[elemento].actor': ['Michael Caine']
     }, 
   },
   { arrayFilters: [{ 'elemento.character': 'Alfred' }] },
@@ -194,7 +194,7 @@ db.movies.updateOne(
 db.movies.updateOne(
   { title: 'Batman'},
   { $set: {
-    'cast.$[elemento].actor': 'Heath Ledger'
+    'cast.$[elemento].actor': ['Heath Ledger']
     }, 
   },
   { arrayFilters: [{ 'elemento.character': 'Coringa' }] },
@@ -206,4 +206,20 @@ db.movies.find();
 // Exercício 12: Adicione aos atores de cast do character Batman do filme Batman os valores "Michael Keaton" , "Val Kilmer" e "George Clooney" , e deixe o array em ordem alfabética.
 // Dica : Para isso, leia aqui sobre o operador $ .
 // Após a execução do método .find().pretty() , o resultado do filme Batman será parecido com o dessa imagem: ./images/exercise12
+use('class');
+db.movies.updateOne(
+  { title: 'Batman',  "cast.character": "Batman"},
+  { $push: {
+    'cast.$.actor': {
+      $each: [
+      "Michael Keaton" , "Val Kilmer", "George Clooney"
+      ],
+      $sort: 1
+      }
+    }, 
+  },
+);
+
+use('class');
+db.movies.find();
 
