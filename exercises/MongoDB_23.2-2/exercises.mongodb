@@ -82,7 +82,6 @@ use('class');
 db.movies.find();
 
 // Exercício 8: Crie um array de documentos chamado cast para o filme Home Alone com os seguintes dados:
-// Copiar
 // {
 //   "actor": "Macaulay Culkin",
 //   "character": "Kevin"
@@ -95,6 +94,29 @@ db.movies.find();
 //   "actor": "Daniel Stern"
 // }
 // Após a execução do método .find().pretty() , o resultado do filme Home Alone será parecido com o dessa imagem: ./images/exercise8
+use('class');
+db.movies.updateOne(
+  { title: 'Home Alone'},
+  { $addToSet: { 
+    cast: { $each: [
+      {
+        "actor": "Macaulay Culkin",
+        "character": "Kevin"
+      },
+      {
+        "actor": "Joe Pesci",
+        "character": "Harry"
+      },
+      {
+        "actor": "Daniel Stern"
+      }
+    ]}
+  }}
+);
+
+use('class');
+db.movies.find();
+
 
 // Exercício 9: Adicione o campo character com o valor Marv ao array de cast em que o campo actor seja igual a Daniel Stern no filme Home Alone .
 // Dica : Para isso, leia aqui sobre o operador $ .
