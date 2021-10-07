@@ -121,9 +121,20 @@ db.movies.find();
 // Exercício 9: Adicione o campo character com o valor Marv ao array de cast em que o campo actor seja igual a Daniel Stern no filme Home Alone .
 // Dica : Para isso, leia aqui sobre o operador $ .
 // Após a execução do método .find().pretty() , o resultado do filme Home Alone será parecido com o dessa imagem: ./images/exercise9
+use('class');
+db.movies.updateOne(
+  { title: 'Home Alone'},
+  { $set: {
+    'cast.$[elemento].character': 'Marv'
+    }, 
+  },
+  { arrayFilters: [{ 'elemento.actor': 'Daniel Stern' }] },
+);
+
+use('class');
+db.movies.find();
 
 // Exercício 10: Crie um array de documentos chamado cast para o filme Batman com os seguintes dados:
-// Copiar
 // {
 //   "character": "Batman"
 // },
@@ -134,6 +145,7 @@ db.movies.find();
 //   "character": "Coringa"
 // }
 // Após a execução do método .find().pretty() , o resultado do filme Batman será parecido com o dessa imagem: ./images/exercise10
+
 
 // Exercício 11: Produza três querys para o filme Batman :
 // Adicione o campo actor , que deve ser um array com o valor Christian Bale , ao array de cast em que o campo character seja igual a Batman ;
