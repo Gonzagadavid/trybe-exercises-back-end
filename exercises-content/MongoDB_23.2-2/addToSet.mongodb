@@ -1,0 +1,21 @@
+use('sales');
+db.inventory.insertOne({
+  _id: 1,
+  item: "polarizing_filter",
+  tags: ["electronics", "camera"],
+});
+
+use('sales');
+db.inventory.find();
+
+use('sales');
+db.inventory.updateOne(
+  { _id: 1 },
+  { $addToSet: { tags: "accessories" } },
+);
+
+use('sales'); // já exite e não tera efeito
+db.inventory.updateOne(
+  { _id: 1 },
+  { $addToSet: { tags: "camera"  } },
+);
