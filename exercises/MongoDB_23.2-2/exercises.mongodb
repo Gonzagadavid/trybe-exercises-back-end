@@ -3,6 +3,14 @@ db.movies.find();
 
 // Exercício 1: Adicione a categoria "superhero" ao filme Batman .
 // Após a execução do método .find().pretty() , o resultado do filme Batman será parecido com o dessa imagem: ./images/exercise1
+use('class');
+db.movies.updateOne(
+  { title: 'Batman'},
+  { $push: { category: 'superhero' }}
+);
+
+use('class');
+db.movies.find();
 
 // Exercício 2: Utilizando o modificador $each , adicione as categorias "villain" e "comic-based" ao filme Batman .
 // Após a execução do método .find().pretty() , o resultado do filme Batman será parecido com o dessa imagem: ./images/exercise2
