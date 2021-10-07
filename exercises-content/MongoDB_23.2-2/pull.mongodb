@@ -1,0 +1,112 @@
+use('sales');
+db.dropDatabase();
+
+use('sales');
+db.supplies.insertMany([{
+  _id: 1,
+  items: [
+    {
+      "name" : "notepad",
+      "price" : 35.29,
+      "quantity" : 2,
+    },
+    {
+      "name": "envelopes",
+      "price": 19.95,
+      "quantity": 8,
+    },
+    {
+      "name": "pens",
+      "price": 56.12,
+      "quantity": 5,
+    },
+  ],
+},
+{
+  _id: 2,
+  items: [
+    {
+      "name" : "pencil",
+      "price" : 5.29,
+      "quantity" : 2,
+    },
+    {
+      "name": "envelopes",
+      "price": 19.95,
+      "quantity": 8,
+    },
+    {
+      "name": "backpack",
+      "price": 80.12,
+      "quantity": 1,
+    },
+    {
+      "name": "pens",
+      "price": 56.12,
+      "quantity": 5,
+    },
+  ],
+}])
+
+use('sales');
+db.supplies.find();
+
+use('sales');
+db.supplies.updateMany(
+  {},
+  {
+    $pull: {
+      items: {
+        name: { $in: ["pens", "envelopes"] },
+      },
+    },
+  },
+);
+
+
+use('sales');
+db.profile.insertOne({ _id: 1, votes: [3, 5, 6, 7, 7, 8] });
+
+use('sales');
+db.profile.find();
+
+use('sales');
+db.profile.updateOne(
+  { _id: 1 },
+  {
+    $pull: {
+      votes: { $gte: 6 },
+    },
+  },
+);
+
+use('sales');
+db.survey.insertMany([
+  {
+  _id: 1,
+  results: [
+    { item: "A", score: 5 },
+    { item: "B", score: 8, comment: "Strongly agree" },
+  ],
+},
+{
+  _id: 2,
+  results: [
+    { item: "C", score: 8, comment: "Strongly agree" },
+    { item: "B", score: 4 },
+  ],
+}
+]);
+
+use('sales');
+db.survey.find();
+
+use('sales');
+db.survey.updateMany(
+  {},
+  {
+    $pull: {
+      results: { score: 8 , item: "B" },
+    },
+  },
+);

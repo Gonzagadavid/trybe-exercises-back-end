@@ -36,3 +36,4 @@ db.supplies.updateOne({ _id: 1 }, { $pop: { items: -1 } });
 
 use('sales');
 db.supplies.updateOne({ _id: 1 }, { $pop: { items: 1 } });
+
