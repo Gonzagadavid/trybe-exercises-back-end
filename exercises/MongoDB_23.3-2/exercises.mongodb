@@ -76,6 +76,15 @@ db.movies.find(
 );
 
 // Retorne os filmes da categoria adventure e com ratings maior do que 103 , exibindo apenas os campos title , ratings e category .
+use('class');
+db.movies.find(
+  {
+    category: { $all: ['adventure'] },
+    ratings: { $elemMatch: { $gt: 103 } }
+  },
+  { _id: false, title: true, ratings: true}
+);
+
 
 // Retorne somente o título de todos os filmes com dois elementos no array category .
 
