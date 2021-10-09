@@ -87,17 +87,26 @@ db.movies.find(
 
 // 10- Retorne somente o título de todos os filmes com dois elementos no array category .
 use('class');
-db.movies.find({ category: { $size: 2 }}, { _id: false, title: true })
+db.movies.find({ category: { $size: 2 }}, { _id: false, title: true });
 
 // 11- Retorne somente o título de todos os filmes com quatro elementos no array ratings .
 use('class');
-db.movies.find({ ratings: { $size: 4 }}, { _id: false, title: true })
+db.movies.find({ ratings: { $size: 4 }}, { _id: false, title: true });
 
 // 12- Busque os filmes em que o módulo 5 do campo budget seja 0 e que o array category tenha tamanho 2 .
 use('class');
-db.movies.find({ budget: { $mod: [5, 0]} , category: { $size: 2 } })
+db.movies.find({ budget: { $mod: [5, 0]} , category: { $size: 2 } });
 
 // 13- Retorne os filmes da categoria "sci-fi" ou que possua o ratings maior do que 199 , exibindo apenas os campos title , ratings e category .
+use('class');
+db.movies.find(
+  { $or: [
+      { category: 'sci-fi' }, 
+      { ratings: { $elemMatch: { $gt: 199 } } } 
+    ]
+  },
+  { _id: false, title: true, ratings: true, category: true }
+);
 
 // 14- Retorne os filmes em que o ratings possua tamanho 4 e que seja da category "adventure" ou "family" , mas que não tenha o imdbRating menor que 7.
 
