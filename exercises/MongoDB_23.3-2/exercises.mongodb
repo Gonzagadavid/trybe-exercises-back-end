@@ -159,10 +159,12 @@ db.movies.find({
   description: { $regex : /.+humanity\.$/i}
 })
 
-// 21- Crie um índice do tipo text no campo description .
+// 20- Crie um índice do tipo text no campo description .
+use('class');
+db.movies.createIndex({ description: 'text' });
 
-// 22- Utilizando o operador $text , busque por filmes que contenham o termo "vacation" .
+// 21- Utilizando o operador $text , busque por filmes que contenham o termo "vacation" .
 
-// 23- Utilizando o operador $text , busque por filmes que contenham os termos "monstrous" ou "criminal" .
+// 22- Utilizando o operador $text , busque por filmes que contenham os termos "monstrous" ou "criminal" .
 
-// 24- Utilizando o operador $text , busque por filmes que contenham a frase "when he is accidentally" .
+// 23- Utilizando o operador $text , busque por filmes que contenham a frase "when he is accidentally" .
