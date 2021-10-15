@@ -70,3 +70,47 @@ db.transactions.aggregate([
   } },
   { $match: { totalValue: { $gt: 1000 } } }
 ]);
+
+// ------------------------------------------------------------
+// $lookup
+
+// Selecione todos os clientes com as suas respectivas transações feitas;
+use('agg_example');
+db.clients.aggregate([
+  {
+    $lookup:  {
+      from: 'transactions',
+      localField: 'name',
+      foreignField: 'from',
+      as: 'transaction'
+    }
+  }
+])
+
+// Selecione quatro clientes com as suas respectivas transações recebidas;
+use('agg_example');
+db.clients.aggregate([
+  { $limit: 4},
+  {
+    $lookup:  {
+      from: 'transactions',
+      localField: 'name',
+      foreignField: 'to',
+      as: 'transaction'
+    }
+  },
+])
+
+// Selecione todos os cliente do estado da "Florida" e suas respectivas transações recebidas.
+use('agg_example');
+db.clients.aggregate([
+  { $match: { State: 'Florida' }},
+  {
+    $lookup:  {
+      from: 'transactions',
+      localField: 'name',
+      foreignField: 'to',
+      as: 'transaction'
+    }
+  },
+])

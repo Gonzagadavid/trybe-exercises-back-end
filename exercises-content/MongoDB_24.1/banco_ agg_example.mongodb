@@ -11,3 +11,15 @@ db.transactions.insertMany([
   { value: 59020, from: "Homer Simpson", to: "Lisa Simpson", bank: 'International' },
   { value: 100, from: "Mark Zuck", to: "Barney Gumble", bank: 'FloridaBank' },
 ]);
+
+use('agg_example');
+db.clients.insertMany([
+  { name: "Dave America", State: "Florida" },
+  { name: "Ned Flanders", State: "Alasca" },
+  { name: "Mark Zuck", State: "Texas" },
+  { name: "Edna Krabappel", State: "Montana" },
+  { name: "Arnold Schuz", State: "California" },
+  { name: "Lisa Simpson", State: "Florida" },
+  { name: "Barney Gumble", State: "Texas" },
+  { name: "Homer Simpson", State: "Florida" },
+]);
