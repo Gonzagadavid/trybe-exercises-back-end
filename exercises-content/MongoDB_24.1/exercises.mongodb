@@ -1,5 +1,6 @@
 // agregation
-
+use('agg_example');
+db.transactions.find();
 
 // $match e $limit
 
@@ -25,4 +26,47 @@ use('agg_example');
 db.transactions.aggregate([
   { $match: { value: { $gt: 1000 } } },
   { $limit: 3 },
+]);
+
+// ---------------------------------------------------------------
+
+// $project e $group
+
+// Selecione todos os bancos, ou seja, valores do campo bank ;
+use('agg_example');
+db.transactions.aggregate([
+  { $project: { _id: 0, bank: 1 } }
+]);
+
+use('agg_example');
+db.transactions.aggregate([
+  { $project: { _id: false, bank: true } }
+]);
+
+// Selecione o valor total das transações em cada banco e quantas são;
+use('agg_example');
+db.transactions.aggregate([
+  { $group: { 
+    _id: null,
+    totalValue: { $sum: '$value' } 
+  } }
+]);
+
+// Selecione o valor total de transações por banco;
+use('agg_example');
+db.transactions.aggregate([
+  { $group: { 
+    _id: '$bank',
+    totalValue: { $sum: '$value' } 
+  } }
+]);
+
+// Selecione os bancos que têm o valor total de transações maior que 1000.
+use('agg_example');
+db.transactions.aggregate([
+  { $group: { 
+    _id: '$bank',
+    totalValue: { $sum: '$value' } 
+  } },
+  { $match: { totalValue: { $gt: 1000 } } }
 ]);
