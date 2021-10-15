@@ -16,25 +16,65 @@ db.clientes.aggregate([
 // Exercício 2: Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "FEMININO" e com data de nascimento entre os anos de 1995 e 2005 .
 use('erp');
 db.clientes.aggregate([
-  { 
-    $match: { 
-    sexo: 'MASCULINO' ,
-    dataNascimento: {$gte: new Date('1995'), $lte: new Date('2005') }
-    } 
+  {
+    $match: {
+    sexo: 'FEMININO' ,
+    dataNascimento: {
+      $gte: new Date('1995'),
+      $lte: new Date('2005')
+      }
+    }
+  }
+]);
+
+// -------------------------------------
+// gabarito -> mesmo resultado
+use('erp');
+db.clientes.aggregate([
+  {
+    $match: {
+      sexo: "FEMININO",
+      dataNascimento: {
+        $gte: ISODate('1995-01-01'),
+        $lte: ISODate('2005-12-31')
+      }
+    }
   }
 ]);
 
 // Exercício 3: Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "FEMININO" e com data de nascimento entre os anos de 1995 e 2005 , limitando a quantidade de documentos retornados em 5 .
 use('erp');
 db.clientes.aggregate([
-  { 
-    $match: { 
-    sexo: 'MASCULINO' ,
-    dataNascimento: {$gte: new Date('1995'), $lte: new Date('2005') }
-    } 
+  {
+    $match: {
+      sexo: 'FEMININO' ,
+      dataNascimento: {
+        $gte: new Date('1995'),
+        $lte: new Date('2005')
+      }
+    }
   },
   { $limit: 5 }
+])
+
+// -------------------------------------
+// gabarito -> mesmo resultado
+use('erp');
+db.clientes.aggregate([
+  {
+    $match: {
+      sexo: "FEMININO",
+      dataNascimento: {
+        $gte: ISODate('1995-01-01'),
+        $lte: ISODate('2005-12-31')
+      }
+    }
+  },
+  {
+    $limit: 5
+  }
 ]);
+
 
 // Exercício 4: Conte quantos clientes do estado SC existem na coleção. Retorne um documento em que o campo _id contenha a UF e outro campo com o total.
 use('erp');
@@ -43,22 +83,22 @@ db.clientes.aggregate([
       'endereco.uf': 'SC'
     }
   },
-  { 
-    $group: { 
+  {
+    $group: {
       _id: '$endereco.uf',
       total: { $sum: 1 }
-    } 
+    }
   },
 ]);
 
 // Exercício 5: Agrupe os clientes por sexo . Retorne o total de clientes de cada sexo no campo total .
 use('erp');
 db.clientes.aggregate([
-  { 
-    $group: { 
+  {
+    $group: {
       _id: '$sexo',
       total: { $sum: 1 }
-    } 
+    }
   },
 ]);
 
@@ -66,14 +106,14 @@ db.clientes.aggregate([
 // Exercício 6: Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total .
 use('erp');
 db.clientes.aggregate([
-  { 
-    $group: { 
-      _id: { 
+  {
+    $group: {
+      _id: {
         sexo: '$sexo',
         uf: '$endereco.uf'
       },
       total: { $sum: 1 }
-    } 
+    }
   },
 ]);
 
@@ -85,22 +125,22 @@ db.clientes.aggregate([
 // }
 use('erp');
 db.clientes.aggregate([
-  { 
-    $group: { 
-      _id: { 
+  {
+    $group: {
+      _id: {
         sexo: '$sexo',
         uf: '$endereco.uf'
       },
       total: { $sum: 1 }
-    } 
+    }
   },
-  { 
-    $project: { 
+  {
+    $project: {
       _id: 0,
       estado: '$_id.uf',
       sexo: '$_id.sexo',
-      total: '$total'
-    } 
+      total: 1
+    }
   },
 ]);
 
@@ -109,7 +149,12 @@ db.clientes.aggregate([
 
 use('erp');
 db.vendas.aggregate([
-  { 
+  {
+    $match: {
+      status: { $in: ["ENTREGUE", "EM SEPARACAO"] }
+    }
+  },
+  {
     $group: {
       _id: '$clienteId',
       valorTotal: { $sum : '$valorTotal'}
@@ -144,18 +189,45 @@ db.vendas.aggregate([
   },
 ]);
 
+// -------------------------------------
+// gabarito - paresenta _id, eu - nome
+use('erp');
+db.vendas.aggregate([
+  {
+    $match: {
+      status: { $in: ["ENTREGUE", "EM SEPARACAO"] }
+    }
+  },
+  {
+    $group: {
+       _id: "$clienteId",
+       valorTotal: {
+          $sum: "$valorTotal"
+       }
+    }
+  },
+  {
+    $sort: {
+      valorTotal: -1
+    }
+  },
+  {
+    $limit: 5
+  }
+]);
+
 // Exercício 9 : Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
 use('erp');
 db.vendas.aggregate([
-  { 
-    $match: { 
-      dataVenda: { 
+  {
+    $match: {
+      dataVenda: {
         $gt: new Date('2019'),
         $lt: new Date('2020')
       }
-    } 
+    }
   },
-    { 
+    {
     $group: {
       _id: '$clienteId',
       valorTotal: { $sum : '$valorTotal'}
@@ -190,17 +262,47 @@ db.vendas.aggregate([
   }
 ]);
 
+// -------------------------------------
+// gabarito - paresenta _id, eu - nome
+use('erp');
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: {
+        $gte: ISODate('2019-01-01'),
+        $lte: ISODate('2019-12-31')
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$clienteId",
+      valorTotal: {
+        $sum: "$valorTotal"
+      }
+    }
+  },
+  {
+    $sort: {
+      valorTotal: -1
+    }
+  },
+  {
+    $limit: 10
+  }
+]);
+
 // Exercício 10 : Descubra quantos clientes compraram mais de 5 vezes. Retorne um documento que contenha somente o campo clientes com o total de clientes.
 // Dica: O operador $count pode simplificar sua query .
 use('erp');
 db.vendas.aggregate([
-  { 
+  {
     $group: {
       _id: '$clienteId',
-      qtdeItens: { $sum: 1 } 
+      qtdeItens: { $sum: 1 }
     }
   },
-  { 
+  {
     $match: {
       qtdeItens: { $gt: 5 }
     }
@@ -210,6 +312,31 @@ db.vendas.aggregate([
   }
 ]);
 
+// -------------------------------------
+// gabarito -> mesmo resultado
+use('erp');
+db.vendas.aggregate([
+  {
+    $group: {
+      _id: "$clienteId",
+      totalCompras: {
+        $sum: 1
+      }
+    }
+  },
+  {
+    $match: {
+      totalCompras: { $gt: 5 }
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      clientes: { $sum: 1 }
+    }
+  },
+  { $project: { _id: 0 } }
+]);
 
 // Exercício 11 : Descubra quantos clientes compraram menos de três vezes entre os meses de Janeiro de 2020 e Março de 2020 .
 use('erp');
@@ -222,13 +349,13 @@ db.vendas.aggregate([
       }
     }
   },
-    { 
+    {
     $group: {
       _id: '$clienteId',
-      qtdeItens: { $sum: 1 } 
+      qtdeItens: { $sum: 1 }
     }
   },
-    { 
+    {
     $match: {
       qtdeItens: { $lt: 3 }
     }
@@ -243,18 +370,18 @@ db.vendas.aggregate([
 // }
 use('erp');
 db.vendas.aggregate([
-  { 
-    $match: { 
-      dataVenda: { 
+  {
+    $match: {
+      dataVenda: {
         $gt: new Date('2020'),
         $lt: new Date('2021')
       }
-    } 
+    }
   },
-  { 
+  {
     $group: {
       _id: '$clienteId',
-      qtdeItens: { $sum: 1 } 
+      qtdeItens: { $sum: 1 }
     }
   },
   {
@@ -295,6 +422,50 @@ db.vendas.aggregate([
   }
 ])
 
+// -------------------------------------
+// gabarito -> mesmo resultado
+use('erp');
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: {
+        $gte: ISODate('2020-01-01')
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'dadosCliente'
+    }
+  },
+  {
+    $unwind: "$dadosCliente"
+  },
+  {
+    $group: {
+      _id: "$dadosCliente.endereco.uf",
+      totalVendas: {
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: {
+      totalVendas: -1
+    }
+  },
+  { $limit: 3 },
+  {
+    $project: {
+      _id: 0,
+      uf: "$_id",
+      totalVendas: 1
+    }
+  }
+]);
 // Exercício 13 : Encontre qual foi o total de vendas e a média de vendas de cada uf no ano de 2019 . Ordene os resultados pelo nome da uf . Retorne os documentos no seguinte formato:
 // Copiar
 // {
@@ -305,18 +476,19 @@ db.vendas.aggregate([
 
 use('erp');
 db.vendas.aggregate([
-  { 
-    $match: { 
-      dataVenda: { 
+  {
+    $match: {
+      dataVenda: {
         $gt: new Date('2019'),
         $lt: new Date('2020')
       }
-    } 
+    }
   },
-  { 
+  {
     $group: {
       _id: '$clienteId',
-      qtdeItens: { $sum: 1 } 
+      qtdeItens: { $sum: 1 },
+      valorTotal: { $avg: '$valorTotal'}
     }
   },
   {
@@ -331,6 +503,7 @@ db.vendas.aggregate([
     $project: {
       _id: 0,
       totalVendas: '$qtdeItens',
+      valorTotal: 1,
       uf: '$cliente.endereco.uf'
     }
   },
@@ -338,14 +511,99 @@ db.vendas.aggregate([
     $project: {
       uf: {$arrayElemAt: ['$uf', 0]},
       totalVendas: 1,
+      valorTotal: 1
     }
   },
     {
     $group: {
       _id: '$uf',
        totalVendas: { $sum: '$totalVendas' },
-       mediaVendas: { $avg: '$totalVendas'}
+       mediaVendas: { $avg: '$valorTotal'}
     }
   },
-  { $sort: { mediaVendas: -1 } },
+    {
+    $sort: { _id: 1 }
+  }
+]);
+
+// ---------------------------------------------
+// correção -- a forma de selecionar data deu diferença no resultado
+use('erp');
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: {
+        // $gt: new Date('2019'),
+        // $lt: new Date('2020')
+        $gte: ISODate('2019-01-01'),
+        $lte: ISODate('2019-12-31')
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'cliente'
+    }
+  },
+  { $unwind: "$cliente" },
+  {
+    $group: {
+      _id:'$cliente.endereco.uf',
+      totalVendas: { $sum: 1 },
+      valorTotal: { $avg: '$valorTotal'},
+    }
+  },
+    {
+    $sort: { _id: 1 }
+  }
+]);
+
+
+// ----------------------------------------------
+// gabarito resposta diferente
+
+use('erp');
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: {
+        $gte: ISODate('2019-01-01'),
+        $lte: ISODate('2019-12-31')
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'cliente'
+    }
+  },
+  {
+    $unwind: "$cliente"
+  },
+  {
+    $group: {
+      _id: "$cliente.endereco.uf",
+      mediaVendas: { $avg: "$valorTotal" },
+      totalVendas: { $sum: 1 }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      uf: "$_id",
+      mediaVendas: 1,
+      totalVendas: 1
+    }
+  },
+  {
+    $sort: {
+      uf: 1
+    }
+  }
 ]);
