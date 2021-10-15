@@ -34,6 +34,6 @@ Bloco 23-2: MongoDB: Updates Simples e Complexos
 - [x] 23.4-2: Projeto - Commerce
 
 Bloco 23: MongoDB: Updates Simples e Complexos
-- [] 23.1: Updates Simples
-- [] 23.2: Updates Complexos - Arrays - Parte 1
-- [] 23.3: Updates Complexos - Arrays - Parte 2
+- [ ] 23.1: Updates Simples
+- [ ] 23.2: Updates Complexos - Arrays - Parte 1
+- [ ] 23.3: Updates Complexos - Arrays - Parte 2
