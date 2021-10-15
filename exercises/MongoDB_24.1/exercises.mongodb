@@ -107,6 +107,42 @@ db.clientes.aggregate([
 
 // Exercício 8 : Descubra quais são os 5 clientes que gastaram o maior valor.
 
+use('erp');
+db.vendas.aggregate([
+  { 
+    $group: {
+      _id: '$clienteId',
+      valorTotal: { $sum : '$valorTotal'}
+    }
+  },
+  {
+    $sort: { valorTotal: -1}
+  },
+  {
+    $limit: 5
+  },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: '_id',
+      foreignField: 'clienteId',
+      as: 'cliente'
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      nome: '$cliente.nome',
+      valorTotal: 1
+    }
+  },
+  {
+    $project: {
+      nome: {$arrayElemAt: ['$nome', 0]},
+      valorTotal: 1
+    }
+  }
+]);
 
 // Exercício 9 : Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
 // Exercício 10 : Descubra quantos clientes compraram mais de 5 vezes. Retorne um documento que contenha somente o campo clientes com o total de clientes.
