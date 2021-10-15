@@ -83,10 +83,31 @@ db.clientes.aggregate([
 //   "sexo": "MASCULINO",
 //   "total": 100
 // }
-
+use('erp');
+db.clientes.aggregate([
+  { 
+    $group: { 
+      _id: { 
+        sexo: '$sexo',
+        uf: '$endereco.uf'
+      },
+      total: { $sum: 1 }
+    } 
+  },
+  { 
+    $project: { 
+      _id: 0,
+      estado: '$_id.uf',
+      sexo: '$_id.sexo',
+      total: '$total'
+    } 
+  },
+]);
 
 
 // Exercício 8 : Descubra quais são os 5 clientes que gastaram o maior valor.
+
+
 // Exercício 9 : Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
 // Exercício 10 : Descubra quantos clientes compraram mais de 5 vezes. Retorne um documento que contenha somente o campo clientes com o total de clientes.
 // Dica: O operador $count pode simplificar sua query .
