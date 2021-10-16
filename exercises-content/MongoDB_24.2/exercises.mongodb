@@ -72,7 +72,7 @@ db.clients.aggregate([
 ]);
 
 // ------------------------------------------------------
-// $add
+// adição/soma $add
 
 // Utilizando o banco de dados storage. Calcule qual o custo total de cada produto, considerando o preço de compra e os impostos.
 
@@ -89,7 +89,7 @@ db.products.aggregate([
 ])
 
 // ---------------------------------------------------
-// $subtract
+// subtração $subtract
 
 // Utilizando o banco de dados storage, Calcule qual o lucro total de cada produto, considerando o preço de compra, os impostos e seu valor de venda.
 
@@ -98,7 +98,7 @@ db.products.aggregate([
     $project: {
       _id: 0,
       name: 1,
-      total_price: { 
+      lucro_total: { 
         $subtract: [
           '$sale_price',
           { 
@@ -111,7 +111,7 @@ db.products.aggregate([
 ])
 
 // ---------------------------------------------------
-// $ceil, $floor e $round
+// arredondamento de valores $ceil, $floor e $round
 
 // Utilizando o banco de dados storage:
 // Retorne o menor número inteiro relativo ao preço de venda de cada produto;
@@ -135,10 +135,35 @@ db.products.aggregate([
     $project: {
       _id: 0,
       name: 1,
-      total_price: {
+      lucro_total: {
           $ceil: [{
             $subtract: ['$sale_price', '$purchase_price']
           }]
+      }
+    }
+  }
+])
+
+// -------------------------------------------------
+// valor absoluto $abs
+
+// Utilizando o banco de dados storage , faça o seguinte exercício:
+// Calcule o valor absoluto do lucro total de cada produto.
+
+db.products.aggregate([
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      lucro_total: { 
+        $abs: {
+          $subtract: [
+            '$sale_price',
+            { 
+              $add: ['$taxes', '$purchase_price'] 
+            }
+          ]
+        }
       }
     }
   }
