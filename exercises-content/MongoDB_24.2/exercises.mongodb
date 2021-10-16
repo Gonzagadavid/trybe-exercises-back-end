@@ -71,7 +71,7 @@ db.clients.aggregate([
   }
 ]);
 
-// ---------------------------------------------------------------------------------------
+// ------------------------------------------------------
 // $add
 
 // Utilizando o banco de dados storage. Calcule qual o custo total de cada produto, considerando o preço de compra e os impostos.
@@ -87,3 +87,26 @@ db.products.aggregate([
     }
   }
 ])
+
+// ---------------------------------------------------
+// $subtract
+
+// Utilizando o banco de dados storage, Calcule qual o lucro total de cada produto, considerando o preço de compra, os impostos e seu valor de venda.
+
+db.products.aggregate([
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      total_price: { 
+        $subtract: [
+          '$sale_price',
+          { 
+            $add: ['$taxes', '$purchase_price'] 
+          }
+        ]
+      }
+    }
+  }
+])
+
