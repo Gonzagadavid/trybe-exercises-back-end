@@ -42,7 +42,7 @@ db.clients.aggregate([
   },
   { $sort: { State: 1}},
   { $limit: 4 },
-])
+]);
 
 // Selecione todos os cliente do estado da "Florida" e suas respectivas transações recebidas.
 
@@ -86,7 +86,7 @@ db.products.aggregate([
       }
     }
   }
-])
+]);
 
 // ---------------------------------------------------
 // subtração $subtract
@@ -108,7 +108,7 @@ db.products.aggregate([
       }
     }
   }
-])
+]);
 
 // ---------------------------------------------------
 // arredondamento de valores $ceil, $floor e $round
@@ -126,7 +126,7 @@ db.products.aggregate([
       }
     }
   }
-])
+]);
 
 
 // Retorne o maior número inteiro relativo ao lucro total sobre cada produto. Nota: Desconsiderar taxas (taxes)
@@ -142,7 +142,7 @@ db.products.aggregate([
       }
     }
   }
-])
+]);
 
 // -------------------------------------------------
 // valor absoluto $abs
@@ -167,4 +167,44 @@ db.products.aggregate([
       }
     }
   }
-])
+]);
+
+
+// --------------------------------------------------
+// multiplicação $multiply
+
+// Utilizando o banco de dados storage , faça os seguintes exercícios:
+// Calcule qual o valor total em estoque de cada produto, considerando o preço de venda e a quantidade;
+db.products.aggregate([
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      total_value: { 
+        $multiply: ['$quantity', '$purchase_price']
+      }
+    }
+  }
+]);
+
+// Calcule qual será o lucro total de cada produto caso todo o estoque seja vendido.
+
+db.products.aggregate([
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      total_value: { 
+        $multiply: [
+            { $subtract: [
+            '$sale_price',
+            { 
+              $add: ['$taxes', '$purchase_price'] 
+            }
+          ]},
+          '$quantity'
+        ]
+      }
+    }
+  }
+]);
