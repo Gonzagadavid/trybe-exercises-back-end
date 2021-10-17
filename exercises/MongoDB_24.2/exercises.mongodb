@@ -308,7 +308,131 @@ db.clientes.aggregate([
 ]).itcount();
 
 // Exercício 6 : Ainda nesse pipeline , descubra os 5 estados com mais compras.
+use('erp');
+db.clientes.aggregate([
+  { $addFields: {
+    idade: {
+      $floor: {
+        $divide: [
+          {$subtract: [ new Date(), '$dataNascimento']},
+          31536000000
+        ]
+      } 
+    }
+  }},
+  {
+    $lookup: {
+      from: 'vendas',
+      let: { cliente: '$clienteId' },
+      pipeline: [
+        {
+          $match: {
+            $expr: { $eq: [
+              '$clienteId', '$$cliente'
+            ]}
+          }
+        }
+      ],
+      as: 'compras'
+    }
+  },
+  {
+    $match: {
+      'compras.dataVenda': {
+       $gte: ISODate('2019-06-01'),
+        $lte: ISODate('2020-03-31')
+      }
+    }
+  },
+  {
+    $addFields: {
+      numeroDeCompras: { $size: '$compras.itens'}
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      uf: '$endereco.uf',
+      numeroDeCompras: 1
+    }
+  },
+  {
+    $group: {
+      _id: '$uf',
+      numeroTotalDeCompras: { $sum: '$numeroDeCompras'}
+    }
+  },
+  { $sort: { numeroTotalDeCompras: -1 } },
+  { $limit: 5 },
+  {
+    $project: {
+      _id: 0,
+      uf: '$_id',
+      numeroTotalDeCompras: 1,
+    }
+  }
+]);
 
+
+// ---------------------------------------
+// gabarito - mesmo resultado
+
+use('erp');
+db.clientes.aggregate([
+  {
+    $addFields: {
+      idade: {
+        $floor:{
+          $divide: [
+            { $subtract: ["$$NOW", "$dataNascimento"] },
+            { $multiply: [86400000, 365] }
+          ]
+        }
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: 'vendas',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  {
+    $match: {
+      "compras.dataVenda": {
+        $gte: ISODate('2019-06-01'),
+        $lte: ISODate('2020-03-31')
+      }
+    }
+  },
+  { $unwind: "$compras" },
+  {
+    $addFields: {
+      "compras.valorComDesconto": {
+        $subtract: [
+          "$compras.valorTotal",
+          { $multiply: ["$compras.valorTotal", 0.10] }
+        ]
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$endereco.uf",
+      totalCompras: {
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: {
+      totalCompras: -1
+    }
+  },
+  { $limit: 5 }
+]);
 
 // Exercício 7 : Descubra o cliente que mais consumiu QUEIJO PRATO . Retorne um documento com a seguinte estrutura:
 // Copiar
