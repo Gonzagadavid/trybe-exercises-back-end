@@ -26,9 +26,9 @@
 
 const readline = require('readline-sync');
 
-const name = readline.question('Qual o seu nome?');
-const weight = readline.questionInt('qual seu peso?');
-const height = readline.questionFloat('qual sua altura? (em metros)');
+const name = readline.question('Qual o seu nome? ');
+const weight = readline.questionInt('qual seu peso? ');
+const height = readline.questionFloat('qual sua altura? (em metros) ');
 
 const imc = (peso, altura) => {
   const calc = parseFloat(peso / (altura**2)).toPrecision(4);

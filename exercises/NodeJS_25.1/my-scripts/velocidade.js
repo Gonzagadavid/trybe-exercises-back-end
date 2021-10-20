@@ -7,8 +7,8 @@
 
 const readline = require('readline-sync');
 
-const distancia = readline.questionInt('Qual a distância? (metros)');
-const tempo = readline.questionInt('qual o tempo? (segundos)');
+const distancia = readline.questionInt('Qual a distância? (metros) ');
+const tempo = readline.questionInt('qual o tempo? (segundos) ');
 
 const velocidade = (distancia, tempo) => (distancia / tempo).toPrecision(4);
 

@@ -9,7 +9,7 @@
 
 const readline = require('readline-sync');
 
-const number = readline.questionInt('Bem vindo! Escolha um numero de 1 a 10, para o sorteio');
+const number = readline.questionInt('Bem vindo! Escolha um numero de 1 a 10, para o sorteio ');
 
 const sorteio = (number) => {
   const randomNumber = Math.round(Math.random() * 10);
@@ -17,11 +17,11 @@ const sorteio = (number) => {
   const resp =  check ? 'Parabéns, número correto!' : `Opa, não foi dessa vez. O número era ${randomNumber}`;
   console.log(resp)
   
-  const again = readline.keyInYN('Deseja jogar novamente?');
+  const again = readline.keyInYN('Deseja jogar novamente');
 
   if (!again) return;
 
-  const number2 = readline.questionInt('Escolha um numero de 1 a 10, para o sorteio');
+  const number2 = readline.questionInt('Escolha um numero de 1 a 10, para o sorteio ');
   
   return sorteio(number2);
 }
