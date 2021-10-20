@@ -1,6 +1,6 @@
 const readline = require('readline-sync');
 
-const options = ['imc', 'velocidade', 'sorteio', 'fatorial'];
+const options = ['imc', 'velocidade', 'sorteio', 'fatorial', 'fibonacci'];
 const selected = readline.keyInSelect(options, 'o que deseja executar?');
 
 switch(selected) {
@@ -13,10 +13,14 @@ switch(selected) {
     break;
     
   case 2 :
-      require('./sorteio')
-      break;
+    require('./sorteio')
+    break;
 
   case 3 :
-      require('./fatorial')
-      break;
+    require('./fatorial')
+    break;
+
+  case 4 :
+    require('./fibonacci')
+    break;
 }
