@@ -125,9 +125,23 @@ const alterItemByNames = (_name, newName) => {
 // Dado o seguinte array de strings: ['Finalmente', 'estou', 'usando', 'Promise.all', '!!!'] Faça com que sua função crie um arquivo contendo cada string, sendo o nome de cada arquivo igual a file<index + 1>.txt . Por exemplo, para a string "Finalmente", o nome do arquivo é file1.txt .
 const multWriteFile = (arr) => arr.forEach((str, i) =>  fs.promises.writeFile(`./file${i + 1}.txt`, str));
 
-multWriteFile(['Finalmente', 'estou', 'usando', 'Promise.all', '!!!'])
+// multWriteFile(['Finalmente', 'estou', 'usando', 'Promise.all', '!!!'])
 
 // Programe sua função para que ela faça a leitura de todos os arquivos criados no item anterior, armazene essa informação e escreva em um arquivo chamado fileAll.txt .
 // O conteúdo do arquivo fileAll.txt deverá ser Finalmente estou usando Promise.all !!! .
 
+const writeAllFile = () => {
+  Promise.all([
+    fs.readFileSync('file1.txt'),
+    fs.readFileSync('file2.txt'),
+    fs.readFileSync('file3.txt'),
+    fs.readFileSync('file4.txt'),
+    fs.readFileSync('file5.txt'),
+  ])
+    .then((arr) =>  fs.promises.writeFile('./fileAll.txt', arr.join(' ')))
+    .catch((err) => {
+      console.error(err.message);
+    })
+}
 
+writeAllFile();
