@@ -35,18 +35,40 @@ const callPromise = (callback) => {
 // callPromise(checkResult)
 
 // 3 - Reescreva o código do exercício anterior para que utilize async/await .
+// Lembre-se: a palavra chave await só pode ser utilizada dentro de funções async .
+const checkResultAsync = async (a, b, c) => {
+  const isNumber = await !checkNum([a, b, c])
+  if (isNumber) throw new Error('Informe apenas números');
+  
+  const result = (a + b) * c;
 
+  if (result < 50) throw new Error('Valor muito baixo')
+  
+  return result
+};
 
 // callPromise(checkResultAsync)
 
 // 4 - Utilize o arquivo simpsons.json para realizar os requisitos abaixo.
 // Você pode utilizar then e catch , async/await ou uma mistura dos dois para escrever seu código. Procure não utilizar callbacks.
 // Crie uma função que leia todos os dados do arquivo e imprima cada personagem no formato id - Nome . Por exemplo: 1 - Homer Simpson .
-
+const printCharacters = () => {
+  try {
+    const characters = fs.readFileSync('simpsons.json', 'utf8');
+    JSON.parse(characters).forEach(({ id, name }) => console.log(`${id} - ${name}`))
+  } catch(err) {
+    console.log(err.message)
+  }
+}
 // printCharacters()
 
 // Crie uma função que receba o id de uma personagem como parâmetro e retorne uma Promise que é resolvida com os dados da personagem que possui o id informado. Caso não haja uma personagem com o id informado, rejeite a Promise com o motivo "id não encontrado".
-
+const characterById = (_id) => new Promise((resolve, reject) => {
+  const characters = fs.readFileSync('simpsons.json', 'utf8');
+  const selected = JSON.parse(characters).find(({ id }) => +id === +_id);
+  if(!selected) reject(new Error('id não encontrado'));
+  resolve(selected.name)
+})
 
 // characterById(3).then((name) => console.log(name)).catch((e) => console.log(e.message))
 
