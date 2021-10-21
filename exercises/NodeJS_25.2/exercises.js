@@ -51,7 +51,7 @@ const checkResultAsync = async (a, b, c) => {
 
 // 4 - Utilize o arquivo simpsons.json para realizar os requisitos abaixo.
 // Você pode utilizar then e catch , async/await ou uma mistura dos dois para escrever seu código. Procure não utilizar callbacks.
-// Crie uma função que leia todos os dados do arquivo e imprima cada personagem no formato id - Nome . Por exemplo: 1 - Homer Simpson .
+// 4.1 Crie uma função que leia todos os dados do arquivo e imprima cada personagem no formato id - Nome . Por exemplo: 1 - Homer Simpson .
 const printCharacters = () => {
   try {
     const characters = fs.readFileSync('simpsons.json', 'utf8');
@@ -62,7 +62,7 @@ const printCharacters = () => {
 }
 // printCharacters()
 
-// Crie uma função que receba o id de uma personagem como parâmetro e retorne uma Promise que é resolvida com os dados da personagem que possui o id informado. Caso não haja uma personagem com o id informado, rejeite a Promise com o motivo "id não encontrado".
+// 4.2 Crie uma função que receba o id de uma personagem como parâmetro e retorne uma Promise que é resolvida com os dados da personagem que possui o id informado. Caso não haja uma personagem com o id informado, rejeite a Promise com o motivo "id não encontrado".
 const characterById = (_id) => new Promise((resolve, reject) => {
   const characters = fs.readFileSync('simpsons.json', 'utf8');
   const selected = JSON.parse(characters).find(({ id }) => +id === +_id);
@@ -72,7 +72,7 @@ const characterById = (_id) => new Promise((resolve, reject) => {
 
 // characterById(3).then((name) => console.log(name)).catch((e) => console.log(e.message))
 
-// Crie uma função que altere o arquivo simpsons.json retirando os personagens com id 10 e 6.
+// 4.3Crie uma função que altere o arquivo simpsons.json retirando os personagens com id 10 e 6.
 const removeItemByIds = (arrId) => {
   const characters = fs.readFileSync('simpsons.json', 'utf8');
   const newChar = JSON.parse(characters).filter(({ id }) => !arrId.includes(+id));
@@ -83,7 +83,7 @@ const removeItemByIds = (arrId) => {
 
 // removeItemByIds([10, 6])
 
-// Crie uma função que leia o arquivo simpsons.json e crie um novo arquivo, chamado simpsonFamily.json , contendo as personagens com id de 1 a 4.
+// 4.4 Crie uma função que leia o arquivo simpsons.json e crie um novo arquivo, chamado simpsonFamily.json , contendo as personagens com id de 1 a 4.
 const getItemByIds = (arrId) => {
   const characters = fs.readFileSync('simpsons.json', 'utf8');
   const newChar = JSON.parse(characters).filter(({ id }) => arrId.includes(+id));
@@ -92,10 +92,22 @@ const getItemByIds = (arrId) => {
     .catch((e) => console.log(e.message))
 } 
 
-getItemByIds([1, 4])
+// getItemByIds([1, 4])
 
-// Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz .
-// Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
+// 4.5 Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz .
+const addItemByName = (_name) => {
+  const getCharacter = fs.readFileSync('simpsons.json', 'utf8');
+  const postCharacter = fs.readFileSync('simpsonFamily.json', 'utf8');
+  const newChar = JSON.parse(getCharacter).filter(({ name }) => name === _name);
+  const newCharacters = [...JSON.parse(postCharacter), ...newChar]
+  fs.promises.writeFile('./simpsonFamily.json', JSON.stringify(newCharacters))
+    .then(() => console.log('arquivo escrito com sucesso'))
+    .catch((e) => console.log(e.message))
+} 
+
+// addItemByName('Nelson Muntz');
+
+// 4.6 Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
 
 
 // 5 - Crie uma função que lê e escreve vários arquivos ao mesmo tempo.
