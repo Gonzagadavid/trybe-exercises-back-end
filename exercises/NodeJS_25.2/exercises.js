@@ -81,10 +81,18 @@ const removeItemByIds = (arrId) => {
     .catch((e) => console.log(e.message))
 } 
 
-removeItemByIds([10, 6])
+// removeItemByIds([10, 6])
 
 // Crie uma função que leia o arquivo simpsons.json e crie um novo arquivo, chamado simpsonFamily.json , contendo as personagens com id de 1 a 4.
+const getItemByIds = (arrId) => {
+  const characters = fs.readFileSync('simpsons.json', 'utf8');
+  const newChar = JSON.parse(characters).filter(({ id }) => arrId.includes(+id));
+  fs.promises.writeFile('./simpsonFamily.json', JSON.stringify(newChar))
+    .then(() => console.log('arquivo escrito com sucesso'))
+    .catch((e) => console.log(e.message))
+} 
 
+getItemByIds([1, 4])
 
 // Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz .
 // Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
