@@ -118,10 +118,16 @@ const alterItemByNames = (_name, newName) => {
     .catch((e) => console.log(e.message))
 } 
 
-alterItemByNames('Nelson Muntz', 'Maggie Simpson');
+// alterItemByNames('Nelson Muntz', 'Maggie Simpson');
 
 // 5 - Crie uma função que lê e escreve vários arquivos ao mesmo tempo.
 // Utilize o Promise.all para manipular vários arquivos ao mesmo tempo.
 // Dado o seguinte array de strings: ['Finalmente', 'estou', 'usando', 'Promise.all', '!!!'] Faça com que sua função crie um arquivo contendo cada string, sendo o nome de cada arquivo igual a file<index + 1>.txt . Por exemplo, para a string "Finalmente", o nome do arquivo é file1.txt .
+const multWriteFile = (arr) => arr.forEach((str, i) =>  fs.promises.writeFile(`./file${i + 1}.txt`, str));
+
+multWriteFile(['Finalmente', 'estou', 'usando', 'Promise.all', '!!!'])
+
 // Programe sua função para que ela faça a leitura de todos os arquivos criados no item anterior, armazene essa informação e escreva em um arquivo chamado fileAll.txt .
 // O conteúdo do arquivo fileAll.txt deverá ser Finalmente estou usando Promise.all !!! .
+
+
