@@ -73,8 +73,19 @@ const characterById = (_id) => new Promise((resolve, reject) => {
 // characterById(3).then((name) => console.log(name)).catch((e) => console.log(e.message))
 
 // Crie uma função que altere o arquivo simpsons.json retirando os personagens com id 10 e 6.
+const removeItemByIds = (arrId) => {
+  const characters = fs.readFileSync('simpsons.json', 'utf8');
+  const newChar = JSON.parse(characters).filter(({ id }) => !arrId.includes(+id));
+  fs.promises.writeFile('./simpsons.json', JSON.stringify(newChar))
+    .then(() => console.log('arquivo escrito com sucesso'))
+    .catch((e) => console.log(e.message))
+} 
+
+removeItemByIds([10, 6])
 
 // Crie uma função que leia o arquivo simpsons.json e crie um novo arquivo, chamado simpsonFamily.json , contendo as personagens com id de 1 a 4.
+
+
 // Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz .
 // Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
 
