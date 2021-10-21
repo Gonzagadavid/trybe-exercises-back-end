@@ -108,7 +108,17 @@ const addItemByName = (_name) => {
 // addItemByName('Nelson Muntz');
 
 // 4.6 Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
+const alterItemByNames = (_name, newName) => {
+  const getCharacter = fs.readFileSync('simpsons.json', 'utf8');
+  const postCharacter = fs.readFileSync('simpsonFamily.json', 'utf8');
+  const newChar = JSON.parse(getCharacter).filter(({ name }) => name === newName);
+  const newCharacters = [...JSON.parse(postCharacter).filter(({ name }) => name !== _name), ...newChar]
+  fs.promises.writeFile('./simpsonFamily.json', JSON.stringify(newCharacters))
+    .then(() => console.log('arquivo escrito com sucesso'))
+    .catch((e) => console.log(e.message))
+} 
 
+alterItemByNames('Nelson Muntz', 'Maggie Simpson');
 
 // 5 - Crie uma função que lê e escreve vários arquivos ao mesmo tempo.
 // Utilize o Promise.all para manipular vários arquivos ao mesmo tempo.
