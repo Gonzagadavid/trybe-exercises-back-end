@@ -7,3 +7,19 @@
 // Imprima na tela o conteúdo do arquivo com as palavras já substituídas.
 // Pergunte o nome do arquivo de destino.
 // Salve o novo arquivo no caminho de destino.
+const readline = require('readline-sync');
+const fs = require('fs');
+
+const changeWord =  () => {
+  const file = readline.question('Qual arquivo você gostaria de alterar palavras? ');
+  const fileDist = readline.question('Como deseja nomear o arquivo com a palavra alterada? ');
+  const oldWord = readline.question('Qual palavra deseja alterar? ');
+  const newWord = readline.question('Qual palavra deseja usar? ');
+  const regWord = new RegExp(oldWord, 'g');
+  const oldFile = fs.readFileSync(file, 'utf8');
+  const newFile = oldFile.replace(regWord, newWord);
+  console.log(newFile)
+  if (readline.keyInYN('confirmar')) fs.writeFileSync(fileDist, newFile);
+}
+
+changeWord();
