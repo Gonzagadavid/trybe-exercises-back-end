@@ -136,6 +136,18 @@ app.put('/recipes/:id', function (req, res) {
   res.status(204).end();
 });
 
+app.put('/drinks/:id', function (req, res) {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  const drinksIndex = drinks.findIndex((r) => r.id === parseInt(id));
+
+  if (drinksIndex === -1) return res.status(404).json({ message: 'Drink not found!' });
+
+  drinks[drinksIndex] = { ...drinks[drinksIndex], name, price };
+
+  res.status(204).end();
+});
+
 app.delete('/recipes/:id', function (req, res) {
   const { id } = req.params;
   const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
@@ -143,6 +155,17 @@ app.delete('/recipes/:id', function (req, res) {
   if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
 
   recipes.splice(recipeIndex, 1);
+
+  res.status(204).end();
+});
+
+app.delete('/drinks/:id', function (req, res) {
+  const { id } = req.params;
+  const drinkIndex = drinks.findIndex((r) => r.id === parseInt(id));
+
+  if (drinkIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  drinks.splice(drinkIndex, 1);
 
   res.status(204).end();
 });
