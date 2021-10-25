@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express()
+
 
 app.get('/ping', (req, res) => {
   res.set({
@@ -11,4 +13,6 @@ app.get('/ping', (req, res) => {
   res.json({ message: 'pong' })
 })
 
-app.listen(3500, () => { console.log('servidor rodando na porta 3500')})
+app.listen(3500, () => { console.log('servidor rodando na porta 3500')});
+
+app.use(cors)
