@@ -106,9 +106,15 @@ app.get('/drinks/:id', function (req, res) {
 });
 
 app.post('/recipes', function (req, res) {
-  const { id, name, price } = req.body;
-  recipes.push({ id, name, price});
+  const { id, name, price, waitTime } = req.body;
+  recipes.push({ id, name, price, waitTime});
   res.status(201).json({ message: 'Recipe created successfully!'});
+});
+
+app.post('/dinks', function (req, res) {
+  const { id, name, price, waitTime } = req.body;
+  drinks.push({ id, name, price, waitTime});
+  res.status(201).json({ message: 'Drink created successfully!'});
 });
 
 app.get('/validateToken', function (req, res) {
