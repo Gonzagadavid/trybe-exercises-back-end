@@ -6,7 +6,7 @@ app.use(express.json({ type: ['application/json', 'text/plain'] }))// <---exerc 
 // pois o body estava chegando vazio, outra forma valida é adicionar o bodyParser(descontinuado)
 
 // Crie uma rota PUT /users/:name/:age . Sua rota deve retornar o seguinte JSON: { "message": "Seu nome é <name> e você tem <age> anos de idade" } .
-app.put('/users/:name/:age', (req, res) => {//  não funcionou no browser apena com metodo get
+app.put('/users/:name/:age', (req, res) => {//  não funcionou no browser apena com metodo get, porem funcionou no httpie
   console.log(req.params);
   // res.set({
   //   "Content-Type": "application/json",

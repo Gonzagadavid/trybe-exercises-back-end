@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "name": "Homer Simpson",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/b/bd/Homer_Simpson.png"
+  },
+  {
+    "id": "2",
+    "name": "Marge Simpson",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/0/0b/Marge_Simpson.png"
+  },
+  {
+    "id": "3",
+    "name": "Bart Simpson",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/8/86/Bart.png"
+  },
+  {
+    "id": "4",
+    "name": "Lisa Simpson",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/9/90/200px-Lisa_Simpson.png/revision/latest/scale-to-width-down/200?cb=20131128165843&path-prefix=pt"
+  },
+  {
+    "id": "5",
+    "name": "Maggie Simpson",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/8/8b/Maggie.jpg"
+  },
+  {
+    "id": "6",
+    "name": "Ned Flanders",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/8/89/Ned_Flanders_avat0B.png/revision/latest?cb=20170303165740&path-prefix=pt"
+  },
+  {
+    "id": "7",
+    "name": "Montgomery Burns",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/6/6a/Mr_Burns_evil.gif/revision/latest/scale-to-width-down/481?cb=20100702150413"
+  },
+  {
+    "id": "8",
+    "name": "Nelson Muntz",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/3/32/NelsonHaha2.GIF/revision/latest/scale-to-width-down/272?cb=20100710231640&path-prefix=pt"
+  },
+  {
+    "id": "9",
+    "name": "Krusty",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/e/e7/Krusty_2.jpg/revision/latest/scale-to-width-down/250?cb=20110529202530&path-prefix=pt"
+  },
+  {
+    "id": "10",
+    "name": "Milhouse Van Houten",
+    "image": "https://static.wikia.nocookie.net/simpsons/images/1/11/Milhouse_Van_Houten.png"
+  }
+]
