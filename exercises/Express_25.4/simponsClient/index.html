@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simpsons</title>
+  <style>
+   
+   img {
+     width: 100px;
+   }
+
+   h3 {
+    flex-grow: 1;
+   }
+
+    #content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content: center;
+      padding: 10px;
+      background-color: #aaa;
+      margin: 20px;
+      height: 300px;
+      width: 200px;
+      box-shadow: 5px 5px 5px black;
+    }
+
+  
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Simpsons</h1>
+    <button id="home">Home</button>
+    <button id="favorites">Favorites</button>
+    <button id="add-character">Add character</button>
+  </header>
+  <content id="content"></content>
+  <script  type="module" src="./script.js"></script>
+</body>
+</html>

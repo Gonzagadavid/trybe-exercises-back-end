@@ -46,7 +46,6 @@ app.post('/simpsons', (req, res) => {
     "Access-Control-Allow-Origin": "*",
   });
 
-  console.log(req)
   const { id, name, image } = req.body;
   const simpsons = getSimpsons();
   const check = simpsons.some(({ id: idSearch }) => idSearch === id);
