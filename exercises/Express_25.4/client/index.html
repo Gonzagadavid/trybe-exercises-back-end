@@ -12,7 +12,7 @@
       align-items: center;
     }
 
-    #ping {
+    code {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -20,15 +20,20 @@
       color: white;
       width: 200px;
       height: 100px;
-      font-size: 40px;
+      font-size: 20px;
+      margin: 10px;
     }
   </style>
 </head>
 <body>
   <h1>Exercicio 25.4</h1>
   <p>1 - Crie uma rota GET /ping</p>
-  <p id="ping"></p>
+  <code id="ping"></code>
   <button id="btn-ping">Ping</button>
+  <p>2 - Crie uma rota POST /hello</p>
+  <label>Digite seu nome: <input type="text" id="user-name" /></label>
+  <code id="hello"></code>
+  <button id="btn-hello">Saudação</button>
   <script src="script.js"></script>
 </body>
 </html>
