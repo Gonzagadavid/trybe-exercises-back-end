@@ -1,1 +1,34 @@
-{"teams":[{"name":"Barcelona","initials":"BAC","country":"Spain","league":"Champions"},{"name":"Barcelona","initials":"BAC","country":"Spain","league":"Champions"},{"name":"Barcelona","initials":"BAC","country":"Spain","league":"Champions"},{"name":"Barcelona","initials":"BAC","country":"Spain","league":"Champions"},{"name":"Barcelona","initials":"BAC","country":"Spain","league":"Champions"}]}
+{
+  "teams": [
+    {
+      "name": "Barcelona",
+      "initials": "BAC",
+      "country": "Spain",
+      "league": "Champions"
+    },
+    {
+      "name": "Barcelona",
+      "initials": "BAC",
+      "country": "Spain",
+      "league": "Champions"
+    },
+    {
+      "name": "Barcelona",
+      "initials": "BAC",
+      "country": "Spain",
+      "league": "Champions"
+    },
+    {
+      "name": "Barcelona",
+      "initials": "BAC",
+      "country": "Spain",
+      "league": "Champions"
+    },
+    {
+      "name": "Barcelona",
+      "initials": "BAC",
+      "country": "Spain",
+      "league": "Champions"
+    }
+  ]
+}

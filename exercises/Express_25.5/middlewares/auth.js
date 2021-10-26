@@ -1,6 +1,6 @@
 module.exports =  (req, res, next) => {
   const { name , initials , country, league } = req.body;
-  console.log(req)
+  
   if (name.length <= 5) next({ status: 400, message: "invalid data" });
 
   if (initials.length > 3 || initials.toUpperCase() !== initials) next({ status: 400, message: "invalid data" });
