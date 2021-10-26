@@ -56,7 +56,7 @@ const helloClick2 = async () => {
     },
     body: data,
     })
-  if (!resp.ok) console.log('ocorreu um erro com hello')
+  if (!resp.ok) console.log('ocorreu um erro com hello 2')
  const { message } = await resp.json();
 
  hello2.innerHTML = message;
@@ -65,3 +65,32 @@ const helloClick2 = async () => {
 }
 
 btnHello2.addEventListener('click', helloClick2)
+
+// 4 ---------------------------------------------------------------------
+const userName3 = document.getElementById('user-name3');
+const userAge2 = document.getElementById('user-age2')
+const hello3 = document.getElementById('hello3');
+const btnHello3 = document.getElementById('btn-hello3');
+
+const helloClick3 = async () => {
+  console.log('foi')
+  // const resp = await fetch(`http://localhost:3500/users/${userName3}/${userAge2}`, {
+  const resp = await fetch('http://localhost:3500/users/David/33/', {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json; charset="UTF-8";'
+    },
+    body: JSON.stringify({})
+    });
+  console.log(resp)
+  if (!resp.ok) console.log('ocorreu um erro com hello 3')
+
+  const { message } = await resp.json();
+
+  hello3.innerHTML = message;
+
+  setTimeout(() => { hello3.innerHTML = ''}, 2000)
+}
+
+btnHello3.addEventListener('click', helloClick3)
