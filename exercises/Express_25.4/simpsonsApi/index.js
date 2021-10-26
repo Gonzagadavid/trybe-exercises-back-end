@@ -1,9 +1,10 @@
 const express = require('express');
 const getSimpsons = require('./functions/getSimpsons');
 const cors = require('cors');
+const addCharacter = require('./functions/addCharacter');
 
 const app = express();
-
+app.use(express.json())
 // Crie um endpoint GET /simpsons O endpoint deve retornar um array com todos os simpsons.
 app.get('/simpsons', (req, res) => {
   res.set({
@@ -45,13 +46,21 @@ app.post('/simpsons', (req, res) => {
     "Access-Control-Allow-Origin": "*",
   });
 
+  console.log(req)
   const { id, name, image } = req.body;
   const simpsons = getSimpsons();
   const check = simpsons.some(({ id: idSearch }) => idSearch === id);
+  
+  if (check) return res.status(409).json({ message: 'id already exists' } );
+  
+  if (!id || !name || !image) return  res.status(400).json({ message: 'incomplete information'});
 
-  if (check) return res.status(204).end();
-
-
+  try {
+    addCharacter({ id, name, image });
+    res.status(204).end();
+  } catch {
+    res.status(500).end()
+  }
 })
 
 app.listen(5300, () => { console.log('server rodando na porta 5300')});
