@@ -23,17 +23,41 @@
       font-size: 20px;
       margin: 10px;
     }
+   
+    input {
+      margin: 10px;
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+    }
+
+
   </style>
 </head>
 <body>
   <h1>Exercicio 25.4</h1>
-  <p>1 - Crie uma rota GET /ping</p>
-  <code id="ping"></code>
-  <button id="btn-ping">Ping</button>
-  <p>2 - Crie uma rota POST /hello</p>
-  <label>Digite seu nome: <input type="text" id="user-name" /></label>
-  <code id="hello"></code>
-  <button id="btn-hello">Saudação</button>
+  <div class="center">
+    <p>1 - Crie uma rota GET /ping</p>
+    <code id="ping"></code>
+    <button id="btn-ping">Ping</button>
+  </div>
+  <div class="center">
+    <p>2 - Crie uma rota POST /hello</p>
+    <label>Digite seu nome: <input type="text" id="user-name" /></label>
+    <code id="hello"></code>
+    <button id="btn-hello">Saudação</button>
+  </div>
+  <div class="center">
+    <p>3 - Crie uma rota POST /greetings (autorizado maiores de 17 anos)</p>
+    <label>Digite seu nome: <input type="text" id="user-name2" /></label>
+    <label>Digite sua idade: <input type="text" id="user-age" /></label>
+    <code id="hello2"></code>
+    <button id="btn-hello2">Saudação</button>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

@@ -24,6 +24,18 @@ app.post('/hello', (req, res) => {
   res.status(201).json({ message: `Hello, ${name}!!!`});
 })
 
+app.post('/greetings', (req, res) => {
+  res.set({
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  });
+  const { name, age } = req.body;
+  
+  if (age < 17) return res.status(401).json({ message: "Unauthorized" })
+
+  res.status(200).json({ message: `Seu nome é ${name} e você tem ${age} anos de idade` })
+})
+
 app.listen(3500, () => { console.log('servidor rodando na porta 3500')});
 
 app.use(cors)
