@@ -4,7 +4,7 @@ const cors = require('cors');
 const addCharacter = require('./functions/addCharacter');
 
 const app = express();
-app.use(express.json())
+app.use(express.json({ type: ['application/json', 'text/plain'] }))
 // Crie um endpoint GET /simpsons O endpoint deve retornar um array com todos os simpsons.
 app.get('/simpsons', (req, res) => {
   res.set({
