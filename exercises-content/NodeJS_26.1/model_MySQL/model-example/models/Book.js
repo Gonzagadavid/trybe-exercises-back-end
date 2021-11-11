@@ -8,7 +8,8 @@ class Book {
   }
 
   async getByAuthorId (id) {
-    const [allBooksByAuthorId] =  await connection.execute(`SELECT title FROM books WHERE author_id = ${id};`);
+    const query = 'SELECT title FROM books WHERE author_id = ?;'
+    const [allBooksByAuthorId] =  await connection.execute(query, [id]);
     return allBooksByAuthorId;
   }
 }
