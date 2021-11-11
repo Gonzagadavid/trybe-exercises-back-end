@@ -2,8 +2,13 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express()
-app.use(express.json({ type: ['application/json', 'text/plain'] }))// <---exerc 2 foi necessario adicionar os parametros 
+
+app.use(cors())// cors mudado para parte superior do codigo e chamado
+
+//app.use(express.json({ type: ['text/plain', 'application/json'] }))// <---exerc 2 foi necessario adicionar os parametros 
 // pois o body estava chegando vazio, outra forma valida é adicionar o bodyParser(descontinuado)
+
+app.use(express.json()) // após usar o cors de forma correta não foi nescessario passar os parametros
 
 // Crie uma rota PUT /users/:name/:age . Sua rota deve retornar o seguinte JSON: { "message": "Seu nome é <name> e você tem <age> anos de idade" } .
 app.put('/users/:name/:age', (req, res) => {//  não funcionou no browser apena com metodo get, porem funcionou no httpie
@@ -31,10 +36,10 @@ app.get('/ping', (req, res) => {
 // Sua rota deve receber, no body da requisição, o seguinte JSON: { "name": "<nome do usuário>" }
 // Sua rota deve retornar o seguinte JSON: { "message": "Hello, <nome do usuário>!" } .
 app.post('/hello', (req, res) => {
-  res.set({
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  });
+  // res.set({
+  //   "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": "*",
+  // });
   const { name } = req.body;
   
   res.status(201).json({ message: `Hello, ${name}!!!`});
@@ -45,10 +50,10 @@ app.post('/hello', (req, res) => {
 // Caso a pessoa usuária tenha idade superior a 17 anos, devolva o JSON { "message": "Hello, <nome do usuário>!" } com o status code 200 - OK .
 // Caso a pessoa usuária tenha 17 anos ou menos, devolva o JSON { "message": "Unauthorized" } com o status code 401 - Unauthorized .
 app.post('/greetings', (req, res) => {
-  res.set({
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  });
+  // res.set({
+  //   "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": "*",
+  // });
   const { name, age } = req.body;
   
   if (age < 17) return res.status(401).json({ message: "Unauthorized" })
@@ -60,4 +65,3 @@ app.post('/greetings', (req, res) => {
 
 app.listen(3500, () => { console.log('servidor rodando na porta 3500')});
 
-app.use(cors)

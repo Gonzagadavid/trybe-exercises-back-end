@@ -25,8 +25,9 @@ const helloClick = async () => {
   const resp = await fetch('http://localhost:3500/hello/', {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'text/plain'// <----exerc2 foi necessario mudar de  application/json para text/plain
+      // Accept: 'application/json',
+      // 'Content-Type': 'text/plain'// <----exerc2 foi necessario mudar de  application/json para text/plain
+      'Content-Type': 'application/json'// <---- após ajustar o cors do lado do servidor  passou aceitar json
     },
     body: data,
     })
@@ -52,7 +53,7 @@ const helloClick2 = async () => {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'text/plain'
+      'Content-Type': 'application/json'
     },
     body: data,
     })
@@ -74,8 +75,7 @@ const btnHello3 = document.getElementById('btn-hello3');
 
 const helloClick3 = async () => {
   console.log('foi')
-  // const resp = await fetch(`http://localhost:3500/users/${userName3}/${userAge2}`, {
-  const resp = await fetch('http://localhost:3500/users/David/33/', {
+  const resp = await fetch(`http://localhost:3500/users/${userName3}/${userAge2}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
