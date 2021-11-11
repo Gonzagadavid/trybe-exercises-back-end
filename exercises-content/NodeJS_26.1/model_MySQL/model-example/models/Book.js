@@ -12,6 +12,11 @@ class Book {
     const [allBooksByAuthorId] =  await connection.execute(query, [id]);
     return allBooksByAuthorId;
   }
+
+  async create (title, author_id) {
+    const query = 'INSERT INTO model_example.books(title, author_id) VALUES(?,?);';
+    await connection.execute(query, [title, author_id]);
+  }
 }
 
 const books = new Book();
