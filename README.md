@@ -37,3 +37,14 @@ Bloco 23: MongoDB: Updates Simples e Complexos
 - [x] 23.1: Updates Simples
 - [x] 23.2: Updates Complexos - Arrays - Parte 1
 - [x] 23.3: Updates Complexos - Arrays - Parte 2
+
+Bloco 24: MongoDB: Aggregation Framework
+- [x] Aggregation Framework - Parte 1
+- [x] Aggregation Framework - Parte 2
+
+Bloco 25: Introdução ao desenvolvimento Web com NodeJS
+- [x] Node.js - Introdução
+- [x] Node.js - Fluxo Assíncrono
+- [x] Testes com NodeJS
+- [x] Express: HTTP com Node.js
+- [x] Express: Middlewares
