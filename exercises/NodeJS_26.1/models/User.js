@@ -1,10 +1,24 @@
+const { ObjectId } = require('bson');
 const connection = require('./connection');
 
 class User {
+
+  async userById(id) {
+    const db = await connection();
+    const objId = new ObjectId(id)
+    const user = await db.collection('user').findOne({ _id: objId });
+    return user;
+  }
+
+  async allUsers() {
+    const db = await connection();
+    const users = await db.collection('user').find().toArray();
+    return users;
+  }
+
   async userExists (userEmail) {
     const db = await connection();
     const user = await db.collection('user').findOne({ email: userEmail });
-    console.log(!!user)
     return !!user;
   }
   

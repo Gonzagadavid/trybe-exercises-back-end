@@ -9,6 +9,25 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
+app.get('/user', async (req, res) => {
+  const allUser = await users.allUsers();
+  res.status(200).json(allUser);
+})
+
+app.get('/user/:id', async (req, res) => {
+    const { id } = req.params;
+    const user = await users.userById(id);
+    
+    if(!user) {
+      res.status(404).json({
+        "error": true,
+        "message": "Usuário não encontrado"
+      })
+    } 
+  
+    res.status(200).json(user);
+  })
+
 app.post('/user', async (req, res) => {
   const { firstName, lastName, email, password} = req.body;
   
