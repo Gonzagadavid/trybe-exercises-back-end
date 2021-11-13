@@ -15,18 +15,53 @@ app.get('/user', async (req, res) => {
 })
 
 app.get('/user/:id', async (req, res) => {
+  const { id } = req.params;
+  const user = await users.userById(id);
+  
+  if(!user) {
+      res.status(404).json({
+          "error": true,
+          "message": "Usuário não encontrado"
+        })
+    } 
+    
+    res.status(200).json(user);
+})
+
+app.put('/user/:id', async (req, res) => {
     const { id } = req.params;
+    const { firstName, lastName, email, password} = req.body;
+    
+    if (!firstName || !lastName || !email || !password) {
+        return res.status(400).json({
+            "error": true,
+            "message": "Todos os campos são obrigatórios"
+        })
+    }
+    
+    if (password.length < 6) { 
+        return res.status(400).json({
+            "error": true,
+            "message": "O campo 'password' deve ter pelo menos 6 caracteres"
+        })
+    }
+    
     const user = await users.userById(id);
     
     if(!user) {
-      res.status(404).json({
-        "error": true,
-        "message": "Usuário não encontrado"
-      })
+        res.status(404).json({
+            "error": true,
+            "message": "Usuário não encontrado"
+        })
     } 
-  
-    res.status(200).json(user);
-  })
+    
+    const userUpdated = { firstName, lastName, email, password }
+    
+    await users.updateUser(id, userUpdated)
+    const userUp = await users.userById(id);
+
+  res.status(200).json(userUp);
+})
 
 app.post('/user', async (req, res) => {
   const { firstName, lastName, email, password} = req.body;

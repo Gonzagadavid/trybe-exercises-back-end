@@ -3,6 +3,12 @@ const connection = require('./connection');
 
 class User {
 
+  async updateUser(id, userUpdated) {
+    const db = await connection();
+    const objId = new ObjectId(id);
+    await db.collection('user').updateOne({ _id: objId}, { $set: {...userUpdated }});
+  }
+
   async userById(id) {
     const db = await connection();
     const objId = new ObjectId(id)
