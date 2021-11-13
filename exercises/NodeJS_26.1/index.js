@@ -1,12 +1,46 @@
 // index.js
 
 const express = require('express');
+const users = require('./models/User')
 const books = require('./models/Book');
 const Author = require('./models/Author');
 const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
+
+app.post('/user', async (req, res) => {
+  const { firstName, lastName, email, password} = req.body;
+  
+  if (!firstName || !lastName || !email || !password) {
+    return res.status(400).json({
+        "error": true,
+        "message": "Todos os campos são obrigatórios"
+    })
+  }
+
+  if (password.length < 6) { 
+    return res.status(400).json({
+        "error": true,
+        "message": "O campo 'password' deve ter pelo menos 6 caracteres"
+    })
+  }
+
+  const checkUserExists = await users.userExists(email);
+
+  if(checkUserExists) {
+    return res.status(400).json( {
+        "error": true,
+        "message": "Esse e-mail já foi cadastrado"
+    }) 
+  }
+
+  const user = await users.insertUser({ firstName, lastName, email, password });
+
+  const {_id } = user
+
+  res.status(201).json({ id: _id, firstName, lastName, email, password })
+})
 
 app.get('/books', async (req, res) => {
     const allBooks = await books.getAll();
