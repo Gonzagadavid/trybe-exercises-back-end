@@ -12,6 +12,7 @@
     },
     "rules": {
         "class-methods-use-this":"off",
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "no-useless-escape":"off"
     }
 }
