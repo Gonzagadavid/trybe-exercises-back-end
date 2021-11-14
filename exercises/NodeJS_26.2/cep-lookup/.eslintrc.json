@@ -11,5 +11,7 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "class-methods-use-this":"off",
+        "no-unused-vars": "off"
     }
 }
