@@ -4,6 +4,7 @@ const error = require('./middleware/error');
 const cepRouter = require('./routers/cep');
 
 const app = express();
+app.use(express.json());
 
 app.get('/ping', pong);
 
