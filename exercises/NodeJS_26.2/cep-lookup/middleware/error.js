@@ -1,6 +1,7 @@
 const errorCode = {
   invalidData: 400,
   notFound: 404,
+  alreadyExists: 409,
 };
 
 const error = (err, req, res, _next) => {

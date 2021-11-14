@@ -1,10 +1,8 @@
-const Cep = require('../models/Cep');
-const cepValid = require('./cepValid');
 const cepFormat = require('./cepFormat');
+const findCep = require('./findCep');
 
 const getCep = async (cepParam) => {
-  const validCep = cepParam.length > 8 ? cepValid(cepParam) : cepParam;
-  const [date] = await Cep.getDateByCep(validCep);
+  const date = await findCep(cepParam);
   const { cep, ...rest } = date;
 
   if (!date) return { error: { code: 'notFound', message: 'CEP não encontrado' } };
