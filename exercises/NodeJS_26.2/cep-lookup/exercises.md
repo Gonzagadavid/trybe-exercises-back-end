@@ -10,8 +10,8 @@ USE cep_lookup;
 CREATE TABLE IF NOT EXISTS ceps (
   cep VARCHAR(8) NOT NULL PRIMARY KEY,
   logradouro VARCHAR(50) NOT NULL,
-  bairro VARCHAR(20) NOT NULL,
-  localidade VARCHAR(20) NOT NULL,
+  bairro VARCHAR(50) NOT NULL,
+  localidade VARCHAR(50) NOT NULL,
   uf VARCHAR(2) NOT NULL
 );
 
@@ -86,3 +86,23 @@ Se o CEP ainda não existir, armazene-o no banco de dados e retorne o status 201
   "uf": "SP",
 }
 ```
+
+## Bônus
+
+Utilize uma API externa para buscar CEPs que não existem no banco de dados
+Quando um CEP não existir no banco de dados, utilize a API https://viacep.com.br/ws/[numero-do-cep]/json/ para obter suas informações.
+Caso o CEP não exista na API externa, você receberá o JSON { "erro": true } . Nesse caso, retorne status 404 Not Found com o seguinte JSON:
+```javascript
+{ "error": { "code": "notFound", "message": "CEP não encontrado" } }
+Caso o CEP exista na API externa, armazene-o no banco e devolva seus dados no seguinte formato:
+```
+```javascript
+{
+  "cep": "01001-000",
+  "logradouro": "Praça da Sé",
+  "bairro": "Sé",
+  "localidade": "São Paulo",
+  "uf": "SP",
+}
+```
+Dica : Na arquitetura MSC, os models são responsáveis por toda a comunicação externa de uma aplicação, o que inclui APIs externas. Logo, você precisará de um model para acessar a API.
