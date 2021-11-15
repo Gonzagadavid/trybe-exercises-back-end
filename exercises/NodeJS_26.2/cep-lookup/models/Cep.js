@@ -9,7 +9,7 @@ class CepModel {
     return date;
   }
 
-  async insertCep(date) {
+  static async insertCep(date) {
     const query = 'INSERT INTO ceps(cep, logradouro, bairro, localidade, uf) VALUES(?,?,?,?,?);';
     await connection().execute(query, date);
   }
@@ -29,7 +29,7 @@ class CepModel {
     }];
   }
 
-  async getExternalCep(cep) {
+  static async getExternalCep(cep) {
     const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     if (!resp.ok) return { erro: true };
     const cepRes = await resp.json();
