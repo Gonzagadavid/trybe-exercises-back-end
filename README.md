@@ -33,11 +33,6 @@ Bloco 23-2: MongoDB: Updates Simples e Complexos
 - [x] 23.3-2: Updates Complexos - Arrays - Parte 2
 - [x] 23.4-2: Projeto - Commerce
 
-Bloco 23: MongoDB: Updates Simples e Complexos
-- [x] 23.1: Updates Simples
-- [x] 23.2: Updates Complexos - Arrays - Parte 1
-- [x] 23.3: Updates Complexos - Arrays - Parte 2
-
 Bloco 24: MongoDB: Aggregation Framework
 - [x] Aggregation Framework - Parte 1
 - [x] Aggregation Framework - Parte 2
@@ -48,3 +43,10 @@ Bloco 25: Introdução ao desenvolvimento Web com NodeJS
 - [x] Testes com NodeJS
 - [x] Express: HTTP com Node.js
 - [x] Express: Middlewares
+
+Bloco 26: NodeJS: Camada de Serviço e Arquitetura Rest e Restful
+
+- [x] 01: Arquitetura de Software - Camada de Model
+- [x] 02: Arquitetura de Software - Camada de Controller e Service
+- [x] 03: Arquitetura Web - Rest e Restful
+- [x] 04: Arquitetura de Software - Testando as Camadas
