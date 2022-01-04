@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1,
+    "breed": "Bromelia",
+    "needsSun": false,
+    "origin": "Argentina",
+    "size": 102,
+    "specialCare": {
+      "waterFrequency": 3
+    }
+  },
+  {
+    "id": 2,
+    "breed": "Orquidea",
+    "size": 99,
+    "needsSun": false,
+    "origin": "Brazil"
+  },
+  {
+    "id": 3,
+    "breed": "Bromelia",
+    "needsSun": true,
+    "origin": "Paraguai",
+    "specialCare": {
+      "waterFrequency": 3
+    },
+    "size": 90
+  },
+  {
+    "id": 4,
+    "breed": "Bromelia",
+    "needsSun": true,
+    "origin": "Paraguai",
+    "specialCare": {
+      "waterFrequency": 3
+    },
+    "size": 90
+  },
+  {
+    "id": 5,
+    "breed": "Bromelia",
+    "needsSun": true,
+    "origin": "Paraguai",
+    "specialCare": {
+      "waterFrequency": 3
+    },
+    "size": 90
+  }
+]
