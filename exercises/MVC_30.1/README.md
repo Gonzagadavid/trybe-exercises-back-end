@@ -33,7 +33,6 @@ Para cada PR realize esse processo.
 
 ### Revisando
 
-
 1. Primeiro vamos iniciar nosso servidor usando o express. Para isso, importe o express, depois, utilize o `express()` para criar uma instância do express e armazena-la na variável app. Agora, use o `app.listen()` para ouvir a porta 3000. Você pode passar um `console.log` com alguma frase como segundo argumento pra saber se seu servidor iniciou como deveria. 
 
 2. Agora precisamos criar o model que será responsável por fazer as requisições da nossa API de piada. Crie o diretório model e dentro dele crie um arquivo com o nome de `joke.js`. Nosso model terá apenas 1 função, a função `getJokes()`. Essa função faz uma chamada no endpoint "https://sv443.net/jokeapi/v2/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist&type=single" utilizando o ***axios***. O axios retorna a informação dentro da propriedade data. Essa propriedade será algo parecido com isso:
