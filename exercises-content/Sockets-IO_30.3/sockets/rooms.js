@@ -7,9 +7,7 @@ module.exports = (io) => io.on('connection', (socket) => {
     socket.broadcast.to(room).emit('serverMessage', `${username} acabou de entrar na sala`);
 
     socket.on('roomClientMessage', ({ message, room}) => {
-      io
-        .to(room)
-        .emit('serverMessage', `${username}: ${message}`)
+      io.to(room).emit('serverMessage', `${username}: ${message}`)
     });
   });
 });
