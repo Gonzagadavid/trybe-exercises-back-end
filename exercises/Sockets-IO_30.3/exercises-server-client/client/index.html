@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+  <link rel="stylesheet" href="./css/feed.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app" class="columns">
+    <div class="column">
+      <div class="tweet">
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="https://semantic-ui.com/images/avatar2/large/matthew.png" alt="Image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>James</strong><small>@jokerjames</small>
+                  <br>
+                  If you don't succeed, dust yourself off and try again.
+                </p>
+              </div>
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small" id='likeIcon'><i class="fas fa-heart"></i></span>
+                  <span class="likes" id='currentLikes'>0</span>
+                  <span class="icon is-small" id='starIcon'><i class="fas fa-star"></i></span>
+                  <span class="likes" id='currentStars'>0</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
+  <script type="module">
+    import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+    const socket = io('http://localhost:3300')
+    const likes = document.querySelector('#currentLikes')
+    const stars = document.querySelector('#currentStars')
+    const likeIcon = document.querySelector('#likeIcon')
+    const starIcon = document.querySelector('#starIcon')
+
+    socket.on('updateLikes', (like) => {
+      likes.innerHTML = like
+    })
+    socket.on('updateStars', (star) => {
+      stars.innerHTML = star
+    })
+
+    function upLikes () {
+      socket.emit('likePost')
+    }
+ 
+    function upStars () {
+      stars.innerHTML = +stars.innerHTML + 1
+      socket.emit('starPost')
+    }
+
+    likeIcon.addEventListener('click', upLikes)
+    starIcon.addEventListener('click', upStars)
+
+  </script>
+  <!-- <script src="./script.js"></script> -->
+</body>
+</html>
