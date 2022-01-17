@@ -7,15 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
-  <link rel="stylesheet" href="./css/feed.css">
+  <link type="text/css"  href="../public/css/feed.css">
   <title>Document</title>
-  <script src="/socket.io/socket.io.js"></script>
+  <!-- <script src="http://localhost:3300/socket.io/socket.io.js"></script> -->
 </head>
 
 <body>
   <div id="app" class="columns">
     <div class="column">
       <div class="tweet">
+        <% user.posts.forEach(({text, likes, stars, id}) => { %>
         <div class="box">
           <article class="media">
             <div class="media-left">
@@ -26,25 +27,28 @@
             <div class="media-content">
               <div class="content">
                 <p>
-                  <strong>James</strong><small>@jokerjames</small>
+                  <strong><%= user.name %></strong><small><%= user.email %></small>
                   <br>
-                  If you don't succeed, dust yourself off and try again.
+                  <%= text %>
                 </p>
               </div>
               <div class="level-left">
-                <a class="level-item">
+                <a class="level-item" href=<%= `/like/${user.id}/${id}`%>>
                   <span class="icon is-small" id='likeIcon'><i class="fas fa-heart"></i></span>
-                  <span class="likes" id='currentLikes'>0</span>
+                  <span class="likes" id='currentLikes'><%= likes %></span>
+                </a>
+                <a class="level-item"  href=<%= `/star/${user.id}/${id}`%>>
                   <span class="icon is-small" id='starIcon'><i class="fas fa-star"></i></span>
-                  <span class="likes" id='currentStars'>0</span>
+                  <span class="likes" id='currentStars'><%= stars %></span>
                 </a>
               </div>
             </div>
           </article>
         </div>
+        <% }) %>
       </div>
     </div>
   </div>
-  <script type="module" src="./script.js"></script>
+  <!-- <script type="module" src="./script.js"></script> -->
 </body>
 </html>
