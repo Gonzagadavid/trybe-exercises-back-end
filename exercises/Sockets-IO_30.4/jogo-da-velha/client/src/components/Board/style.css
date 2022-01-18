@@ -1,0 +1,16 @@
+.Board {
+  width: 180px;
+  height: 186px;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 180px;
+}
+
+.box {
+  width: 60px;
+  height: 60px;
+  border: solid black 1px;
+}

@@ -33,13 +33,13 @@
                 </p>
               </div>
               <div class="level-left">
-                <a class="level-item" href=<%= `/like/${user.id}/${id}`%>>
-                  <span class="icon is-small" id='likeIcon'><i class="fas fa-heart"></i></span>
-                  <span class="likes" id='currentLikes'><%= likes %></span>
+                <a class="level-item" href=<%= `/redes/like/${user.id}/${id}`%>>
+                  <span class="icon is-small" id=likeIcon'><i class="fas fa-heart"></i></span>
+                  <span class="likes" id=<%= `currentLikes-${id}` %>><%= likes %></span>
                 </a>
-                <a class="level-item"  href=<%= `/star/${user.id}/${id}`%>>
+                <a class="level-item"  href=<%= `/redes/star/${user.id}/${id}`%>>
                   <span class="icon is-small" id='starIcon'><i class="fas fa-star"></i></span>
-                  <span class="likes" id='currentStars'><%= stars %></span>
+                  <span class="likes" id=<%=`currentStars-${id}`%>><%= stars %></span>
                 </a>
               </div>
             </div>
@@ -49,6 +49,25 @@
       </div>
     </div>
   </div>
-  <!-- <script type="module" src="./script.js"></script> -->
+  <!-- <script type="module" src="../public/js/index.js"></script> -->
+  <script type="module">
+ 
+ import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+const socket = io('http://localhost:3300')
+
+socket.on('updateLikes', (likesC) => {
+  const { postId, likes } = likesC
+  const like = document.querySelector(`#currentLikes-${postId}`)
+  like.innerHTML = likes
+})
+socket.on('updateStars', (starC) => {
+  console.log(starC)
+  const { postId, stars } = starC
+  const star = document.querySelector(`#currentStars-${postId}`)
+  star.innerHTML = stars
+})
+
+
+  </script>
 </body>
 </html>

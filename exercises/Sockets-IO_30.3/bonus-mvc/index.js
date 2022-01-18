@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
 const path = require('path');
-const { getUserPosts, addLike, addStar } = require('./controllers');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -12,17 +11,17 @@ const io = require('socket.io')(http, {
     methods: ['GET', 'POST'],
   }});
 
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-const route = express.Router({ mergeParams: true})
+const route = require('./routes')
 
-route.get('/:id', getUserPosts)
-route.get('/like/:id/:postId', addLike)
-route.get('/star/:id/:postId', addStar)
+app.use('/redes', route)
 
-app.use('/', route)
+require('./socket')(io)
 
-app.listen(3300, () => console.log('reodando na porta 3300'))
+// io.listen(3300)
+
+http.listen(3300, () => console.log('reodando na porta 3300'))
